@@ -20,10 +20,11 @@
 			</div>
 			
 			{!! Form::open(array(
-				'action' => 'LivroController@postCadastrar',
+				'action' => 'LivroController@create',
 				'id' => 'cadastrarLivro',
 				'class' => 'form')) 
 			!!}
+
 				<fieldset class="step" id="cadastrarLivro1">
 					<h1>Etapa 1/3</h1>
 					<div class="formRow">
@@ -80,9 +81,9 @@
 					<div class="formRow">
 						<label>Ponto de troca:</label>
 						<div class="formRight">
-							<input type="radio" checked="checked" name="ponto" id="radio1" value="casa" class="link" />
+							<input type="radio" checked="checked" name="tipo-ponto" id="radio1" value="casa" class="link" />
 							<label for="radio1">Minha casa</label>
-							<input type="radio" name="ponto" id="radio2" value="fora" class="link" />
+							<input type="radio" name="tipo-ponto" id="radio2" value="fora" class="link" />
 							<label for="radio2">Outro ponto de troca</label>
 						</div>
 						<div class="clear"></div>
@@ -98,21 +99,33 @@
 						<div class="clear"></div>
 					</div>
 				</fieldset>
-				<fieldset class="step" id="fora">
-					<h1>Etapa 1/3</h1>
-					<div class="formRow">
-						<label>ISBN:</label>
-						<div class="formRight">
-							<input type="text" name="isbn" />
-							<a href="#" class="wizard-next"><span class="formNote">Este livro não possui ISBN? Clique aqui</span></a>
-						</div>
-						<div class="clear"></div>
-					</div>
+				<fieldset class="step" id="fora" class="submit_step">
+					<h1>Etapa 3/3</h1>		
+					<table cellpadding="0" cellspacing="0" width="100%" class="sTable">
+		                <thead>
+		                    <tr>
+		                    	<td width="1"></td>
+		                        <td>Nome</td>
+		                        <td>Bairro</td>
+		                    </tr>
+		                </thead>
+		                <tbody>
+		                	@foreach ($pontos as $ponto)
+		                    <tr>
+		                    	<td><input type="radio" name="ponto" value="{{ $ponto->id }} value="radio-{{ $ponto->id }}"></td>
+		                        <td><a href="#" title="{{ $ponto->endereco }}" class="tipN"><strong>{{ $ponto->nome }}</strong></a></td>
+
+		                        <td>{{ $ponto->bairro }}</td>
+		                    </tr>
+		                    @endforeach
+		                </tbody>
+		            </table>
+					<div class="clear"></div>
 				</fieldset>
 				<div class="wizButtons"> 
 					<span class="wNavButtons">
-						<input class="basic" id="back3" value="Voltar" type="reset" />
-						<input class="blueB ml10" id="next3" value="Próximo" type="submit" />
+						<input class="basic" id="back" value="Voltar" type="reset" />
+						<input class="blueB ml10" id="next" value="Próximo" type="submit" />
 					</span>
 				</div>
 				<div class="clear"></div>
@@ -123,7 +136,7 @@
 
 	<div class="oneTwo hide">
 		<div class="widget">
-			<div class="title"><img src="{{ asset('images/icons/dark/pencil.png') }}" alt="" class="titleIcon" />
+			<div class="title"><img src="{{ asset('images/icons/dark/globe.png') }}" alt="" class="titleIcon" />
 				<h6>Pontos</h6>
 			</div>
 			<div id="googleMap" style="width:100%;height:380px;"></div>
@@ -136,14 +149,31 @@
 
 @section('js')
 <script type="text/javascript">
+
+	/* Google MAPS
+	================================================== */
 	function initialize() {
 		var mapOptions = {
-			zoom: 8,
-			center: new google.maps.LatLng(-34.397, 150.644),
-			mapTypeId: google.maps.MapTypeId.ROADMAP
+			zoom: 14,
+			center: new google.maps.LatLng(-23.653026, -46.747006),
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			}
 		}
 
 		var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+
+		// Adiciona os marcadores de Ponto de troca
+		@foreach ($pontos as $ponto)
+
+			new google.maps.Marker({
+			    position: new google.maps.LatLng({{ $ponto->latitude }}, {{ $ponto->longitude }}),
+			    map: map,
+			    title: '{{ $ponto->nome }}'
+			});
+
+		@endforeach
 	}
 
 	function loadScript() {
@@ -154,5 +184,28 @@
 	}
 
 	window.onload = loadScript;
+
+	/* Form Wizard
+	================================================== */
+	$(function() {
+			$("#cadastrarLivro").formwizard({
+				formPluginEnabled: false, 
+				validationEnabled: false,
+				focusFirstInput : true,
+				disableUIStyles : true,
+				textNext: 'Próximo',
+				textBack: 'Voltar',
+				textSubmit: 'Cadastrar',
+				submitStepClass: 'submit_step'
+			});
+			$('.wizard-next').click(function(event) {
+				$('#cadastrarLivro').formwizard('next');
+			});
+			$("#cadastrarLivro").bind("step_shown", function(event, data){
+				if (data.currentStep == 'cadastrarLivro2') {
+					// @TODO: Populate second step form
+				};
+			});
+	});
 </script>
 @stop

@@ -10,6 +10,7 @@ $factory('App\User', [
 $factory('App\Livro', [
 	'tema_id'	=> App\Tema::first()->id,
 	'dono_id'	=> App\User::first()->id,
+	'ponto_id'	=> App\Ponto::first()->id,
 	'isbn'		=> $faker->randomNumber(8),
 	'titulo'	=> $faker->words(3),
 	'edicao'	=> $faker->randomDigit,

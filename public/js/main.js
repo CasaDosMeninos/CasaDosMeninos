@@ -215,32 +215,7 @@ $(function() {
 	
 	$("select, input:checkbox, input:radio, input:file").uniform();
 
-/* Custom
-================================================== */
-
-	$("#cadastrarLivro").formwizard({
-		formPluginEnabled: false, 
-		validationEnabled: false,
-		focusFirstInput : false,
-		disableUIStyles : true,
-		textNext: 'Próximo',
-		textBack: 'Voltar',
-		textSubmit: 'Cadastrar'
-	});
-	$('.wizard-next').click(function(event) {
-		$('#cadastrarLivro').formwizard('next');
-	});
-	$("#cadastrarLivro").bind("step_shown", function(event, data){
-		if (data.currentStep == 'cadastrarLivro2') {
-			// @TODO: Populate second step form
-		};
-
-		if (data.currentStep == 'fora') {
-			$('div.hide').fadeIn('slow');
-		};
-
-		if (data.currentStep != 'fora') {
-			$('div.hide').fadeOut('slow');
-		}
-	});
+	//===== Tooltips =====//
+	
+	$('.tipN').tipsy({gravity: 'n',fade: true});
 });
