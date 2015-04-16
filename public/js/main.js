@@ -234,5 +234,13 @@ $(function() {
 		if (data.currentStep == 'cadastrarLivro2') {
 			// @TODO: Populate second step form
 		};
+
+		if (data.currentStep == 'fora') {
+			$('div.hide').fadeIn('slow');
+		};
+
+		if (data.currentStep != 'fora') {
+			$('div.hide').fadeOut('slow');
+		}
 	});
 });

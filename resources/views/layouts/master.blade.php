@@ -224,5 +224,7 @@
 
 <div class="clear"></div>
 
+@yield('js')
+
 </body>
 </html>

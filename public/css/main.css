@@ -1,9 +1,7 @@
 @import "reset.css";
-@import "fullcalendar.css";
 @import "datatable.css";
 @import "ui_custom.css";
 @import "prettyPhoto.css";
-@import "elfinder.css";
 
 
 /* Table of Content
@@ -1782,3 +1780,5 @@ color: #656565;
 	.searchWidget input[type="text"] { width: 92%!important; }
 	
 }
+
+.hide { display: none; }
