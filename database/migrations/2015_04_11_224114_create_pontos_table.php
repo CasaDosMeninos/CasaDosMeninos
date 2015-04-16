@@ -16,7 +16,10 @@ class CreatePontosTable extends Migration {
             $table->increments('id');
             $table->string('nome');
             $table->string('endereco');
+            $table->string('bairro');
             $table->integer('cep');
+            $table->decimal('latitude', 9, 6);
+            $table->decimal('longitude', 9, 6);
             $table->string('responsavel')->nullable();
             $table->string('contato')->nullable();
             $table->string('autorizacao')->nullable();
