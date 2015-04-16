@@ -14,10 +14,10 @@ class CreateLivrosTable extends Migration {
 	{
 		Schema::create('livros', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('tema_id');
+            $table->unsignedInteger('tema_id');
             $table->foreign('tema_id')->references('id')->on('temas');
-            $table->integer('owner_id');
-            $table->foreign('owner_id')->references('id')->on('users');
+            $table->unsignedInteger('dono_id');
+            $table->foreign('dono_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('isbn')->nullable();
             $table->string('titulo');
             $table->integer('edicao')->nullable();
