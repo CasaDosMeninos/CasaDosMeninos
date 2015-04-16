@@ -1,10 +1,12 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Tema;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+
+use App\Tema;
+use App\Ponto;
 
 class LivroController extends Controller {
 
@@ -15,7 +17,7 @@ class LivroController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		return view('livro.index');
 	}
 
 	/**
@@ -23,10 +25,12 @@ class LivroController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getCadastrar()
+	public function create()
 	{
+		$pontos = Ponto::all();
+		
 		$temas = Tema::all()->lists('nome', 'id');
-		return view('livro.cadastrar', compact('temas'));
+		return view('livro.cadastrar', compact('temas', 'pontos'));
 	}
 
 	/**
@@ -34,9 +38,11 @@ class LivroController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function postCadastrar()
+	public function store(Request $request)
 	{
-		//
+		\Debugbar::info($request->all());
+		$temas = Tema::all()->lists('nome', 'id');
+		return view('livro.cadastrar', compact('temas'));
 	}
 
 	/**

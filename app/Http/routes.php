@@ -13,4 +13,9 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::controller('livro', 'LivroController');
+
+Route::get('livro/cadastrar', ['as' => 'livro.cadastrar', 'uses' => 'LivroController@create']);
+Route::get('livro/consultar', ['as' => 'livro.consultar', 'uses' => 'LivroController@index']);
+
+
+

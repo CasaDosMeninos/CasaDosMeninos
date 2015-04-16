@@ -69,8 +69,8 @@
         <li class="dash"><a href="#" title="" class="active"><span>Home</span></a></li>
         <li class="book"><a href="#" title="" class="exp"><span>Livros</span></a>
             <ul class="sub">
-                <li><a href="{{ URL::action('LivroController@getCadastrar') }}" title="">Cadastrar</a></li>
-                <li class="last"><a href="#" title="">Consultar</a></li>
+                <li><a href="{{ route('livro.cadastrar') }}" title="">Cadastrar</a></li>
+                <li class="last"><a href="{{ route('livro.consultar') }}" title="">Consultar</a></li>
             </ul>
         </li>
         <li class="sign-post"><a href="#" title=""><span>Pontos de Troca</span></a></li>
