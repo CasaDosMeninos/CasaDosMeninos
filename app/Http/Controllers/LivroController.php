@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Tema;
 use App\Ponto;
+use App\Livro;
 
 class LivroController extends Controller {
 
@@ -17,8 +18,11 @@ class LivroController extends Controller {
 	 */
 	public function index()
 	{
-		return view('livro.index');
+		// @TODO: Errado! Apenas mostrar os validados
+		$livros = Livro::all();
+		return view('livro.index', compact('livros'));
 	}
+
 
 	/**
 	 * Show the form for creating a new resource.
@@ -40,9 +44,22 @@ class LivroController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		\Debugbar::info($request->all());
-		$temas = Tema::all()->lists('nome', 'id');
-		return view('livro.cadastrar', compact('temas'));
+
+		if ($request->input('tipo-ponto') == 'fora') {
+			return redirect()->route('livro.ponto')->withInput($request->except('_token', 'tipo-ponto'));
+		} else {
+			$tema = Tema::find($request->input('tema_id'));
+			\Debugbar::info($tema);
+
+			$livro = new Livro;
+			$livro->tema()->associate($tema);
+			\Debugbar::info($livro);
+			return view('home');
+		}
+
+
+
+		// return redirect()->route('livro.consultar');
 	}
 
 	/**
@@ -89,4 +106,16 @@ class LivroController extends Controller {
 		//
 	}
 
+	/**
+	 * Mostra os possiveis pontos de troca para o livro que está sendo cadastrado.
+	 *
+	 * @return Response
+	 */
+	public function ponto(Request $request)
+	{
+		\Debugbar::info($request->old());
+
+		$pontos = Ponto::all();
+		return view('livro.ponto', compact('pontos'));
+	}
 }

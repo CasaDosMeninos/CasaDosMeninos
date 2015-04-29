@@ -218,4 +218,20 @@ $(function() {
 	//===== Tooltips =====//
 	
 	$('.tipN').tipsy({gravity: 'n',fade: true});
+
+/* Tables
+================================================== */
+
+	
+	//===== Dynamic data table =====//
+	
+	oTable = $('.dTable').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
+		"sDom": '<""l>t<"F"fp>'
+	});
+
+
+
+
 });
