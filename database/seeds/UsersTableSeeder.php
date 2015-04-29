@@ -14,8 +14,7 @@ class UsersTableSeeder extends Seeder {
         App\User::create([
         	'name'		=> 'Rodrigo A.',
         	'email'		=> 'alves.wm@gmail.com',
-        	'endereco'	=> 'R. Jose Alvarez Maciel, 67',
-        	'cep'		=> '05539-080'
+        	'ponto_id'  => 2
         ]);
     }
 

@@ -19,6 +19,16 @@ class PontosTableSeeder extends Seeder {
     		'latitude'	=> -23.653026,
     		'longitude'	=> -46.747006
     	]);
+
+        Ponto::create([
+            'nome'      => 'Casa do Rodrigo',
+            'endereco'  => 'R. Utuamba,56',
+            'bairro'    => 'Jardim Brasilia',
+            'cep'       => '05846430',
+            'latitude'  => -23.649742,
+            'longitude' => -46.748515,
+            'privado'   => TRUE
+        ]);
     }
 
 }

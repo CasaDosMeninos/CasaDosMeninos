@@ -19,7 +19,7 @@
 				<h6>Cadastrar livro</h6>
 			</div>
 
-			<form id="cadastrarLivro" method="post" class="form" action="{{ action('LivroController@store') }}">
+			<form id="cadastrarLivro" method="post" class="form" action="{{ action('LivroController@store') }}" enctype="multipart/form-data">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<fieldset class="step" id="cadastrarLivro1">
 					<h1>Etapa 1/2</h1>
@@ -35,8 +35,8 @@
 				<fieldset id="cadastrarLivro2" class="step">
 					<h1>Etapa 2/2</h1>
 					<div class="formRow">
-						<label>Título</label>
-						<div class="formRight"><input type="text" name="titulo" id="titulo" /></div>
+						<label>Título:*</label>
+						<div class="formRight"><input type="text" name="titulo" id="titulo" class="validate[required]" /></div>
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">
@@ -60,8 +60,8 @@
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">
-						<label>Autor:</label>
-						<div class="formRight"><input type="text" name="autor" id="autor" /></div>
+						<label>Autor:*</label>
+						<div class="formRight"><input type="text" name="autor" id="autor" class="validate[required]" /></div>
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">

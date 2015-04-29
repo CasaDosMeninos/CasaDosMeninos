@@ -12,4 +12,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     protected $table = 'users'; 
     protected $hidden = ['remember_token'];
+
+    public function ponto()
+    {
+    	return $this->belongsTo('App\Ponto', 'ponto_id');
+    }
 }

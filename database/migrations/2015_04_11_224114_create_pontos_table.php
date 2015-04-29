@@ -23,6 +23,7 @@ class CreatePontosTable extends Migration {
             $table->string('responsavel')->nullable();
             $table->string('contato')->nullable();
             $table->string('autorizacao')->nullable();
+            $table->boolean('privado')->default(FALSE);
             $table->timestamps();
         });
 	}

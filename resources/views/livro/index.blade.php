@@ -39,3 +39,11 @@
     </table>  
 </div>
 @stop
+
+@section('js')
+@if (old('cadastro') != null)
+    <script type="text/javascript">
+        $.jGrowl("{{ old('cadastro') }}");
+    </script>
+@endif
+@stop

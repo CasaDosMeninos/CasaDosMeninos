@@ -5,6 +5,11 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use Auth;
+use Session;
+use File;
+
+use App\User;
 use App\Tema;
 use App\Ponto;
 use App\Livro;
@@ -18,8 +23,7 @@ class LivroController extends Controller {
 	 */
 	public function index()
 	{
-		// @TODO: Errado! Apenas mostrar os validados
-		$livros = Livro::all();
+		$livros = Livro::where('validado', TRUE)->get();
 		return view('livro.index', compact('livros'));
 	}
 
@@ -31,10 +35,21 @@ class LivroController extends Controller {
 	 */
 	public function create()
 	{
-		$pontos = Ponto::all();
-		
 		$temas = Tema::all()->lists('nome', 'id');
-		return view('livro.cadastrar', compact('temas', 'pontos'));
+		return view('livro.cadastrar', compact('temas'));
+	}
+
+	/**
+	 * Mostra os possiveis pontos de troca para o livro que está sendo cadastrado.
+	 *
+	 * @return Response
+	 */
+	public function ponto(Request $request)
+	{
+		\Debugbar::info(Session::all());
+		$request->flash();
+		$pontos = Ponto::where('privado', FALSE)->get();
+		return view('livro.ponto', compact('pontos'));
 	}
 
 	/**
@@ -45,21 +60,63 @@ class LivroController extends Controller {
 	public function store(Request $request)
 	{
 
-		if ($request->input('tipo-ponto') == 'fora') {
-			return redirect()->route('livro.ponto')->withInput($request->except('_token', 'tipo-ponto'));
-		} else {
-			$tema = Tema::find($request->input('tema_id'));
-			\Debugbar::info($tema);
 
+		// Se o tipo do ponto não for a casa do dono, ainda há mais um passo no formulário
+		if ($request->input('tipo-ponto') == 'fora') {
+			if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
+				$extensao = $request->file('imagem')->getClientOriginalExtension();
+				$nome = sprintf('user_%d.%s', Auth::user()->id, $extensao);
+				$request->file('imagem')->move('livros', $nome);
+
+				// Salva na sessão para renomear futuramente
+				session(['imagem' => ['nome' => $nome, 'extensao' => $extensao]]);
+			}
+			session($request->except('_token', 'tipo-ponto', 'imagem'));
+			return redirect()->route('livro.ponto');
+		} else {
 			$livro = new Livro;
-			$livro->tema()->associate($tema);
-			\Debugbar::info($livro);
-			return view('home');
+
+			// Foreign Keys
+			$livro->tema()->associate(Tema::find($request->input('tema_id')));
+			$livro->dono()->associate(User::find(Auth::user()->id));
+			$livro->ponto()->associate(Ponto::find(Auth::user()->ponto_id));
+
+			$livro->fill($request->input())->save();
+
+			// Se o livro tiver imagem
+			if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
+				$nome = $livro->id . '.' . $request->file('imagem')->getClientOriginalExtension();
+				$request->file('imagem')->move('livros', $nome);
+				$livro->imagem = TRUE;
+				$livro->update();
+			}
+
+			return redirect()
+					->route('livro.consultar')
+					->withInput(['cadastro' => 'Cadastro de livro realizado com sucesso']);
+		}
+	}
+
+	public function storePonto(Request $request)
+	{
+		$livro = new Livro;
+
+		$livro->tema()->associate(Tema::find(Session::get('tema_id')));
+		$livro->dono()->associate(User::find(Auth::user()->id));
+		$livro->ponto()->associate(Ponto::find($request->get('ponto')));
+
+		$livro->fill(Session::all())->save();
+
+		if (Session::has('imagem')) {
+			$imagem = Session::get('imagem');
+			rename("livros/{$imagem['nome']}", "livros/{$livro->id}.{$imagem['extensao']}");
+			$livro->imagem = TRUE;
+			$livro->update();
 		}
 
-
-
-		// return redirect()->route('livro.consultar');
+		return redirect()
+				->route('livro.consultar')
+				->withInput(['cadastro' => 'Cadastro de livro realizado com sucesso']);
 	}
 
 	/**
@@ -106,16 +163,5 @@ class LivroController extends Controller {
 		//
 	}
 
-	/**
-	 * Mostra os possiveis pontos de troca para o livro que está sendo cadastrado.
-	 *
-	 * @return Response
-	 */
-	public function ponto(Request $request)
-	{
-		\Debugbar::info($request->old());
-
-		$pontos = Ponto::all();
-		return view('livro.ponto', compact('pontos'));
-	}
+	
 }

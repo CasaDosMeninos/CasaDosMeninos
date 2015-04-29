@@ -19,7 +19,8 @@
 				<h6>Atribuir ponto de troca</h6>
 			</div>
 			
-			<form id="" class="form" action="{{ action('LivroController@create') }}">
+			<form id="formPonto" class="form" action="{{ action('LivroController@storePonto') }}" method="POST">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<table cellpadding="0" cellspacing="0" width="100%" class="sTable">
 	                <thead>
 	                    <tr>

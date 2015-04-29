@@ -25,7 +25,7 @@ class CreateLivrosTable extends Migration {
             $table->integer('paginas')->nullable();
             $table->string('editora')->nullable();
             $table->string('autor');
-            $table->string('imagem')->nullable();
+            $table->boolean('imagem')->default(FALSE);
             $table->boolean('validado');
             $table->timestamps();
         });

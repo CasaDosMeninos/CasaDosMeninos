@@ -6,7 +6,7 @@ $(function() {
 
 	//===== Validation engine =====//
 	
-	$("#validate").validationEngine();
+	$("#cadastrarLivro").validationEngine();
 
 /* General stuff
 ================================================== */

@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Livro extends Model {
 
-	protected $fillable = ['isbn', 'titulo', 'edicao', 'autor', 'imagem'];
+	protected $fillable = ['isbn', 'titulo', 'edicao', 'ano', 'paginas', 'editora', 'autor'];
 
 	// Dono do livro
 	public function dono() {
