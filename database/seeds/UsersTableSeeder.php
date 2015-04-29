@@ -12,8 +12,10 @@ class UsersTableSeeder extends Seeder {
         DB::table('users')->delete();
         
         App\User::create([
-        	'name' => 'Rodrigo A.',
-        	'email' => 'alves.wm@gmail.com'
+        	'name'		=> 'Rodrigo A.',
+        	'email'		=> 'alves.wm@gmail.com',
+        	'endereco'	=> 'R. Jose Alvarez Maciel, 67',
+        	'cep'		=> '05539-080'
         ]);
     }
 
