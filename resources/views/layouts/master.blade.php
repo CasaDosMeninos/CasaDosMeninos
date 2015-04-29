@@ -103,7 +103,10 @@
     @section('top-nav')
     <div class="topNav">
         <div class="wrapper">
-            <div class="welcome"><a href="#" title=""><img src="{{ asset('images/userPic.png') }}" alt="" /></a><span>Olá, {{ Auth::user()->name }}!</span></div>
+            <div class="welcome">
+                <a href="#" title=""><img src="{{ asset('images/userPic.png') }}" alt="" /></a>
+                <span>Olá, @if (Auth::user()) {{ Auth::user()->name }} @else convidado @endif</span>
+            </div>
             <div class="userNav">
                 <ul>
                     <li>
@@ -122,7 +125,7 @@
                     <li>
                         <a href="{{ route('auth.logout') }}" title="">
                             <img src="{{ asset('images/icons/topnav/logout.png') }}" alt="" />
-                            <span>Logout</span>
+                            <span>@if (Auth::user()) Logout @else Login @endif</span>
                         </a>
                     </li>
                 </ul>
