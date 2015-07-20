@@ -228,7 +228,14 @@ $(function() {
 	oTable = $('.dTable').dataTable({
 		"bJQueryUI": true,
 		"sPaginationType": "full_numbers",
-		"sDom": '<""l>t<"F"fp>'
+		"sDom": '<""l>t<"F"fp>',
+        "language": {
+            "search": "Buscar: ",
+            "lengthMenu": "Mostrar _MENU_ itens por p&aacute;gina",
+            "zeroRecords": "Nenhum registro",
+            "info": "Mostrando _PAGE_ p&aacute;ginas de _PAGES_",
+        }
+
 	});
 
 

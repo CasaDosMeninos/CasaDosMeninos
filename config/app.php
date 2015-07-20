@@ -148,6 +148,7 @@ return [
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
+        'Jenssegers\Date\DateServiceProvider',
 
 	],
 
@@ -197,9 +198,10 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
-		'Debugbar' => 'Barryvdh\Debugbar\Facade',
-		'Form'=> 'Illuminate\Html\FormFacade',
-		'HTML'=> 'Illuminate\Html\HtmlFacade'
+		'Debugbar'  => 'Barryvdh\Debugbar\Facade',
+		'Form'      => 'Illuminate\Html\FormFacade',
+		'HTML'      => 'Illuminate\Html\HtmlFacade',
+        'Date'      => 'Jenssegers\Date\Date',
 
 	],
 

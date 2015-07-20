@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <title>Casa dos Meninos - Biblioteca</title>
 <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
 
@@ -85,7 +85,7 @@
         </li>
         <li class="admin-user"><a href="#" title="" class="exp"><span>Administrador</span></a>
             <ul class="sub">
-                <li><a href="#" title="">Temas</a></li>
+                <li><a href="{{ route('admin.temas') }}" title="">Temas</a></li>
                 <li><a href="#" title="">Validar Livro</a></li>
                 <li><a href="#" title="">Editar Livro</a></li>
                 <li class="last"><a href="#" title="">Pontos de Troca</a></li>

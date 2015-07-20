@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use App\Tema;
+
 class TemaController extends Controller {
 
 	/**
@@ -14,7 +16,8 @@ class TemaController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$temas = Tema::all();
+		return view('admin.tema.index', compact('temas'));
 	}
 
 	/**
@@ -24,7 +27,7 @@ class TemaController extends Controller {
 	 */
 	public function create()
 	{
-		return view('admin.temas.cadastrar');
+		return view('admin.tema.cadastrar');
 	}
 
 	/**
@@ -45,7 +48,7 @@ class TemaController extends Controller {
 	 */
 	public function show($id)
 	{
-		return view('admin.temas.visualizar');
+		return view('admin.tema.visualizar');
 	}
 
 	/**
