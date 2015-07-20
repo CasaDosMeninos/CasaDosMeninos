@@ -9,11 +9,28 @@
 @stop
 
 @section('sub-nav')
+    <div class="statsRow">
+        <div class="wrapper">
+            <div class="controlB">
+                <ul>
+                    <li>
+                        <a href="{{ action('Admin\TemaController@create') }}" title="">
+                            <img src="{{ asset('images/icons/control/32/plus.png') }}" alt="" />
+                            <span>Criar tema</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="line"></div>
 @stop
 
 @section('content')
     <div class="widget">
-        <div class="title"><img src="{{ asset('images/icons/dark/books.png') }}" alt="" class="titleIcon" />
+        <div class="title"><img src="{{ asset('images/icons/dark/list.png') }}" alt="" class="titleIcon" />
             <h6>Temas</h6>
         </div>
 
@@ -52,12 +69,18 @@
             "columnDefs": [{
                 "targets": 0,
                 "render": function ( data, type, full, meta ) {
-                    return '<a href="tema/'+data[0]+'">'+ data.substr(1) +'</a>';
+                    return '<a href="/admin/tema/ver/'+ data[0] +'">'+ data.substr(1) +'</a>';
                 }
             }, {
                 "targets": 1,
                 "width": "15%"
-            }]
+            }],
+            "language": {
+                "search": "Buscar: ",
+                "lengthMenu": "Mostrar _MENU_ itens por p&aacute;gina",
+                "zeroRecords": "Nenhum registro",
+                "info": "Mostrando _PAGE_ p&aacute;ginas de _PAGES_",
+            }
         });
     </script>
 @stop

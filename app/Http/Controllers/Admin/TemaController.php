@@ -27,7 +27,8 @@ class TemaController extends Controller {
 	 */
 	public function create()
 	{
-		return view('admin.tema.cadastrar');
+
+        return view('admin.tema.cadastrar');
 	}
 
 	/**
@@ -35,9 +36,15 @@ class TemaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$tema = new Tema();
+        $tema->nome = $request->input('nome');
+        $tema->save();
+
+        return redirect()
+            ->route('admin.temas')
+            ->withInput(['cadastro' => 'Tema cadastrado com sucesso']);
 	}
 
 	/**
@@ -48,7 +55,8 @@ class TemaController extends Controller {
 	 */
 	public function show($id)
 	{
-		return view('admin.tema.visualizar');
+        $tema = Tema::find($id);
+		return view('admin.tema.visualizar', compact('tema'));
 	}
 
 	/**
@@ -68,9 +76,15 @@ class TemaController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request)
 	{
-		//
+        $tema = Tema::find($request->id);
+        $tema->nome = $request->nome;
+        $tema->save();
+
+        return redirect()
+            ->route('admin.temas')
+            ->withInput(['cadastro' => 'Tema editado com sucesso']);
 	}
 
 	/**
@@ -81,7 +95,10 @@ class TemaController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        Tema::destroy($id);
+        return redirect()
+            ->route('admin.temas')
+            ->withInput(['cadastro' => 'Tema deletado com sucesso']);
 	}
 
 }
