@@ -34,6 +34,7 @@ class LivroController extends Controller {
         $temas = Tema::all()->lists('nome', 'id');
 
         // Carrega info na Session para mudar o Ponto de Troca
+        $request->session()->put('id', $livro->id);
         $request->session()->put('isbn', $livro->isbn);
         $request->session()->put('titulo', $livro->titulo);
         $request->session()->put('edicao', $livro->edicao);

@@ -99,24 +99,40 @@ class LivroController extends Controller {
 
 	public function storePonto(Request $request)
 	{
-		$livro = new Livro;
+        $msg = $route = '';
 
-		$livro->tema()->associate(Tema::find(Session::get('tema_id')));
-		$livro->dono()->associate(User::find(Auth::user()->id));
-		$livro->ponto()->associate(Ponto::find($request->get('ponto')));
+        // Se já existir ID então estou editando o ponto de troca
+        if (Session::get('id') == null) {
+            $livro = new Livro;
 
-		$livro->fill(Session::all())->save();
+            $livro->tema()->associate(Tema::find(Session::get('tema_id')));
+            $livro->dono()->associate(User::find(Auth::user()->id));
+            $livro->ponto()->associate(Ponto::find($request->get('ponto')));
 
-		if (Session::has('imagem')) {
-			$imagem = Session::get('imagem');
-			rename("livros/{$imagem['nome']}", "livros/{$livro->id}.{$imagem['extensao']}");
-			$livro->imagem = TRUE;
-			$livro->update();
-		}
+            $livro->fill(Session::all())->save();
+
+            if (Session::has('imagem')) {
+                $imagem = Session::get('imagem');
+                rename("livros/{$imagem['nome']}", "livros/{$livro->id}.{$imagem['extensao']}");
+                $livro->imagem = TRUE;
+                $livro->update();
+            }
+
+            $msg = 'Cadastro de livro realizado com sucesso';
+            $route = 'livro.consultar';
+        } else {
+            $livro = Livro::find(Session::pull('id'));
+            $livro->ponto()->associate(Ponto::find($request->get('ponto')));
+            $livro->save();
+
+            $msg = 'Ponto de troca alterado com sucesso';
+            $route = 'admin.livros';
+        }
+
 
 		return redirect()
-				->route('livro.consultar')
-				->withInput(['cadastro' => 'Cadastro de livro realizado com sucesso']);
+				->route($route)
+				->withInput(['cadastro' => $msg]);
 	}
 
 
