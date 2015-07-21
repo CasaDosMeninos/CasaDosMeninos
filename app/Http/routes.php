@@ -26,10 +26,17 @@ Route::group(['middleware' => 'auth'], function() {
 
 /* Admin group */
 Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
+    // Temas
 	Route::get('temas',             ['as' => 'admin.temas', 'uses' => 'TemaController@index']);
-    Route::get('tema/ver/{id}',     'TemaController@show');
+    Route::get('tema/ver/{id}',     'TemaController@edit');
     Route::get('tema/apagar/{id}',  'TemaController@destroy');
     Route::get('tema/cadastrar',    'TemaController@create');
-    Route::post('tema/gravar',       'TemaController@store');
+    Route::post('tema/gravar',      'TemaController@store');
     Route::post('tema/atualizar',   'TemaController@update');
+
+    // Livros
+    Route::get('livros',             ['as' => 'admin.livros', 'uses' => 'LivroController@index']);
+    Route::get('livro/ver/{id}',     'LivroController@edit');
+    Route::get('livro/apagar/{id}',  'LivroController@destroy');
+    Route::post('livro/atualizar',   'LivroController@update');
 });

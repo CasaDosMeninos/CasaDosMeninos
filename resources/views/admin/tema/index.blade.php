@@ -44,7 +44,7 @@
             <tbody>
             @foreach ($temas as $tema)
                 <tr>
-                    <td>{{ $tema->id }}{{ $tema->nome }}</td>
+                    <td>{{ $tema->id }};{{ $tema->nome }}</td>
                     <td>{{ Date::parse($tema->updated_at)->format('d/m/Y H:i') }}</td>
                 </tr>
             @endforeach
@@ -69,7 +69,8 @@
             "columnDefs": [{
                 "targets": 0,
                 "render": function ( data, type, full, meta ) {
-                    return '<a href="/admin/tema/ver/'+ data[0] +'">'+ data.substr(1) +'</a>';
+                    var tema = data.split(';');
+                    return '<a href="/admin/tema/ver/'+ tema[0] +'">'+ tema[1] +'</a>';
                 }
             }, {
                 "targets": 1,

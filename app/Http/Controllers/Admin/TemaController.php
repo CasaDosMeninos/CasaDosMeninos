@@ -27,7 +27,6 @@ class TemaController extends Controller {
 	 */
 	public function create()
 	{
-
         return view('admin.tema.cadastrar');
 	}
 
@@ -48,18 +47,6 @@ class TemaController extends Controller {
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-        $tema = Tema::find($id);
-		return view('admin.tema.visualizar', compact('tema'));
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -67,7 +54,8 @@ class TemaController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+        $tema = Tema::find($id);
+        return view('admin.tema.visualizar', compact('tema'));
 	}
 
 	/**

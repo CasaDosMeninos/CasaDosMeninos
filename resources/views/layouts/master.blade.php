@@ -87,7 +87,7 @@
             <ul class="sub">
                 <li><a href="{{ route('admin.temas') }}" title="">Temas</a></li>
                 <li><a href="#" title="">Validar Livro</a></li>
-                <li><a href="#" title="">Editar Livro</a></li>
+                <li><a href="{{ route('admin.livros') }}" title="">Editar Livro</a></li>
                 <li class="last"><a href="#" title="">Pontos de Troca</a></li>
             </ul>
         </li>
