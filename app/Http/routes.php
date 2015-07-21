@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
 
     // Livros
     Route::get('livros',             ['as' => 'admin.livros', 'uses' => 'LivroController@index']);
+    Route::get('livros/validar',     ['as' => 'admin.validar', 'uses' => 'LivroController@showInvalid']);
+    Route::get('livro/validar/{id}', 'LivroController@validar');
     Route::get('livro/ver/{id}',     'LivroController@edit');
     Route::get('livro/apagar/{id}',  'LivroController@destroy');
     Route::post('livro/atualizar',   'LivroController@update');

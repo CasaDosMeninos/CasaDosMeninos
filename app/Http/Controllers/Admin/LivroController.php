@@ -87,4 +87,19 @@ class LivroController extends Controller {
             ->withInput(['cadastro' => 'Livro deletado com sucesso']);
 	}
 
+    public function showInvalid() {
+        $livros = Livro::where('validado', FALSE)->get();
+
+        return view('admin.livro.index', compact('livros'));
+    }
+
+    public function validar($id) {
+        $livro = Livro::find($id);
+        $livro->validado = TRUE;
+        $livro->save();
+
+        return redirect()
+            ->route('admin.validar')
+            ->withInput(['cadastro' => 'Livro validado com sucesso']);
+    }
 }

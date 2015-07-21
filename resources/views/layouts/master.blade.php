@@ -86,7 +86,7 @@
         <li class="admin-user"><a href="#" title="" class="exp"><span>Administrador</span></a>
             <ul class="sub">
                 <li><a href="{{ route('admin.temas') }}" title="">Temas</a></li>
-                <li><a href="#" title="">Validar Livro</a></li>
+                <li><a href="{{ route('admin.validar') }}" title="">Validar Livro</a></li>
                 <li><a href="{{ route('admin.livros') }}" title="">Editar Livro</a></li>
                 <li class="last"><a href="{{ route('admin.pontos') }}" title="">Pontos de Troca</a></li>
             </ul>

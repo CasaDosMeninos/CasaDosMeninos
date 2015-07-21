@@ -13,6 +13,15 @@
         <div class="wrapper">
             <div class="controlB">
                 <ul>
+                    @if($livro->validado != TRUE)
+                    <li>
+                        <a href="{{ action('Admin\LivroController@validar', ['id' => $livro->id]) }}" title="">
+                            <img src="{{ asset('images/icons/control/32/check.png') }}" alt="" />
+                            <span>Validar</span>
+                        </a>
+                    </li>
+                    @endif
+
                     <li>
                         <a href="{{ action('Admin\LivroController@destroy', ['id' => $livro->id]) }}" title="">
                             <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
