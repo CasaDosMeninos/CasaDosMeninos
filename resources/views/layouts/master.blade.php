@@ -73,7 +73,7 @@
                 <li class="last"><a href="{{ route('livro.consultar') }}" title="">Consultar</a></li>
             </ul>
         </li>
-        <li class="sign-post"><a href="#" title=""><span>Pontos de Troca</span></a></li>
+        <li class="sign-post"><a href="{{ route('ponto.index') }}" title=""><span>Pontos de Troca</span></a></li>
         <li class="clock"><a href="#" title=""><span>Histórico</span></a></li>
         <li class="tables"><a href="#" title="" class="exp"><span>Solicitações</span><strong>8</strong></a>
             <ul class="sub">

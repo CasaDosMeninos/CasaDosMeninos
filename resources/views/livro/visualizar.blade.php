@@ -49,7 +49,7 @@
 
                         <dt class="pt20">ISBN</dt>
                         <dd>{{ $livro->isbn }}</dd>
-    
+
                         <dt class="pt20">Título</dt>
                         <dd>{{ $livro->titulo }}</dd>
 
