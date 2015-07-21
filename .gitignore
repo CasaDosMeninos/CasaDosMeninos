@@ -1,6 +1,9 @@
 /vendor
 /node_modules
 .env
+
 /public/livros/*
+/public/autorizacao/*
+
 composer.phar
 .idea

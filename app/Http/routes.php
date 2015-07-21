@@ -39,4 +39,13 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     Route::get('livro/ver/{id}',     'LivroController@edit');
     Route::get('livro/apagar/{id}',  'LivroController@destroy');
     Route::post('livro/atualizar',   'LivroController@update');
+
+    // Pontos
+    Route::get('pontos',             ['as' => 'admin.pontos', 'uses' => 'PontoController@index']);
+    Route::get('ponto/ver/{id}',     'PontoController@edit');
+    Route::get('ponto/apagar/{id}',  'PontoController@destroy');
+    Route::get('ponto/cadastrar',    'PontoController@create');
+    Route::get('ponto/{id}/livros',  'PontoController@livros');
+    Route::post('ponto/gravar',      'PontoController@store');
+    Route::post('ponto/atualizar',   'PontoController@update');
 });

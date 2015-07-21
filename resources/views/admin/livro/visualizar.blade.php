@@ -30,7 +30,7 @@
 
 @section('content')
 
-    <form id="editarLivroForm" action="{{ action('Admin\LivroController@update') }}" method="POST" class="form" enctype="multipart/form-data">
+    <form action="{{ action('Admin\LivroController@update') }}" method="POST" class="form validate" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="id" value="{{ $livro->id }}">
         <fieldset>
