@@ -43,7 +43,7 @@ class LivroController extends Controller {
         $request->session()->put('editora', $livro->editora);
         $request->session()->put('autor', $livro->autor);
         $request->session()->put('tema_id', $livro->tema_id);
-        \Debugbar::info(Session::all());
+
 
         return view('admin.livro.visualizar', compact('livro', 'temas'));
 	}

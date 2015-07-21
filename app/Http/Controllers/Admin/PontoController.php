@@ -67,7 +67,6 @@ class PontoController extends Controller {
 	public function edit($id)
     {
         $ponto = Ponto::find($id);
-        \Debugbar::info(count($ponto->user));
         return view('admin.ponto.visualizar', compact('ponto'));
 	}
 

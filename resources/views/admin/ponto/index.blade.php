@@ -38,6 +38,7 @@
             <thead>
             <tr>
                 <th>Nome</th>
+                <th>Livros alocados</th>
                 <th>Endereço</th>
                 <th>Bairro</th>
                 <th>CEP</th>
@@ -47,6 +48,7 @@
             @foreach ($pontos as $ponto)
                 <tr>
                     <td>{{ $ponto->id }};{{ $ponto->nome }}</td>
+                    <td>{{ count($ponto->livros) }}</td>
                     <td>{{ $ponto->endereco }}</td>
                     <td>{{ $ponto->bairro }}</td>
                     <td>{{ $ponto->cep }}</td>

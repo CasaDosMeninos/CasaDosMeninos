@@ -27,6 +27,11 @@ class LivroController extends Controller {
 		return view('livro.index', compact('livros'));
 	}
 
+    public function show($id)
+    {
+        $livro = Livro::find($id);
+        return view('livro.visualizar', compact('livro'));
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -46,7 +51,6 @@ class LivroController extends Controller {
 	 */
 	public function ponto(Request $request)
 	{
-		\Debugbar::info(Session::all());
 		$request->flash();
 		$pontos = Ponto::where('privado', FALSE)->get();
 		return view('livro.ponto', compact('pontos'));
