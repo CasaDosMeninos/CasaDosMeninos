@@ -227,7 +227,7 @@ $(function() {
     $( "#dialog-message" ).dialog({
         autoOpen: false,
         modal: true,
-        width:400
+        width: 400
     });
 
     $( "#opener" ).click(function() {

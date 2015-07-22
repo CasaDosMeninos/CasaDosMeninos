@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/',             ['as' => 'home',            'uses' => 'HomeController@index']);
 Route::get('auth/login',	['as' => 'auth.login',		'uses' => 'AuthController@login']);	
 Route::get('auth/logout',	['as' => 'auth.logout',		'uses' => 'AuthController@logout']);	
 Route::post('auth/login',	['as' => 'auth.postLogin',	'uses' => 'AuthController@postLogin']);	
@@ -57,3 +57,9 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
     Route::post('ponto/gravar',      'PontoController@store');
     Route::post('ponto/atualizar',   'PontoController@update');
 });
+
+function setActive($route, $class = '')
+{
+    return in_array(Route::currentRouteName(), $route) ? 'active' : $class;
+
+}

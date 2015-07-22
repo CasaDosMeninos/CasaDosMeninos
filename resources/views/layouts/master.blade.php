@@ -67,14 +67,16 @@
     <!-- Left navigation -->
     @section('nav')
     <ul id="menu" class="nav">
-        <li class="dash"><a href="#" title="" class="active"><span>Home</span></a></li>
-        <li class="book"><a href="#" title="" class="exp"><span>Livros</span></a>
+        <li class="dash"><a href="{{ route('home') }}" title="" class="{{ setActive(['home']) }}"><span>Home</span></a></li>
+        <li class="book"><a href="#" title="" class="{{ setActive(['livro.consultar', 'livro.cadastrar'], 'exp') }}"><span>Livros</span></a>
             <ul class="sub">
-                <li><a href="{{ route('livro.cadastrar') }}" title="">Cadastrar</a></li>
+                <li><a href="{{ route('livro.cadastrar') }}"  title="">Cadastrar</a></li>
                 <li class="last"><a href="{{ route('livro.consultar') }}" title="">Consultar</a></li>
             </ul>
         </li>
-        <li class="sign-post"><a href="{{ route('ponto.index') }}" title=""><span>Pontos de Troca</span></a></li>
+        <li class="sign-post">
+            <a href="{{ route('ponto.index') }}" class="{{ setActive(['ponto.index']) }}" title=""><span>Pontos de Troca</span></a>
+        </li>
         <li class="clock"><a href="#" title=""><span>Histórico</span></a></li>
         <li class="tables"><a href="#" title="" class="exp"><span>Solicitações</span><strong>8</strong></a>
             <ul class="sub">
@@ -84,7 +86,8 @@
                 <li class="last"><a href="#" title="">Todas Solicitações</a></li>
             </ul>
         </li>
-        <li class="admin-user"><a href="#" title="" class="exp"><span>Administrador</span></a>
+        <li class="admin-user">
+            <a href="#" title="" class="{{ setActive(['admin.temas', 'admin.validar', 'admin.livros', 'admin.pontos'], 'exp') }}"><span>Administrador</span></a>
             <ul class="sub">
                 <li><a href="{{ route('admin.temas') }}" title="">Temas</a></li>
                 <li><a href="{{ route('admin.validar') }}" title="">Validar Livro</a></li>

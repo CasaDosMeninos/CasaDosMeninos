@@ -13,6 +13,7 @@ use App\User;
 use App\Tema;
 use App\Ponto;
 use App\Livro;
+use App\Status;
 
 class LivroController extends Controller {
 
@@ -88,6 +89,7 @@ class LivroController extends Controller {
 			$livro->tema()->associate(Tema::find($request->input('tema_id')));
 			$livro->dono()->associate(User::find(Auth::user()->id));
 			$livro->ponto()->associate(Ponto::find(Auth::user()->ponto_id));
+            $livro->status()->associate(Status::where('nome', 'Disponivel')->first());
 
 			$livro->fill($request->input())->save();
 
