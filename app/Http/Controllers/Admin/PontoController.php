@@ -49,8 +49,15 @@ class PontoController extends Controller {
         $ponto->fill($request->input())->save();
 
         if ($request->file('autorizacao') != null && $request->file('autorizacao')->isValid()) {
+
+            if (!File::exists('autorizacao'))
+                \File::makeDirectory('autorizacao');
+
             $nome = $ponto->id . '.' . $request->file('autorizacao')->getClientOriginalExtension();
             $request->file('autorizacao')->move('autorizacao', $nome);
+
+            $ponto->autorizacao = $nome;
+            $ponto->save();
         }
 
         return redirect()
@@ -82,8 +89,15 @@ class PontoController extends Controller {
         $ponto->fill($request->input())->save();
 
         if ($request->file('autorizacao') != null && $request->file('autorizacao')->isValid()) {
+
+            if (!File::exists('autorizacao'))
+                \File::makeDirectory('autorizacao');
+
             $nome = $ponto->id . '.' . $request->file('autorizacao')->getClientOriginalExtension();
             $request->file('autorizacao')->move('autorizacao', $nome);
+
+            $ponto->autorizacao = $nome;
+            $ponto->save();
         }
 
         return redirect()

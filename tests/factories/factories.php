@@ -8,6 +8,7 @@ $factory('App\User', [
 ]);
 
 $factory('App\Livro', [
+    'status_id' => App\Status::first()->id,
 	'tema_id'	=> App\Tema::first()->id,
 	'dono_id'	=> App\User::first()->id,
 	'ponto_id'	=> App\Ponto::first()->id,

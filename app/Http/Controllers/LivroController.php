@@ -68,6 +68,10 @@ class LivroController extends Controller {
 		// Se o tipo do ponto não for a casa do dono, ainda há mais um passo no formulário
 		if ($request->input('tipo-ponto') == 'fora') {
 			if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
+
+                if (!File::exists('livros'))
+                    \File::makeDirectory('livros');
+
 				$extensao = $request->file('imagem')->getClientOriginalExtension();
 				$nome = sprintf('user_%d.%s', Auth::user()->id, $extensao);
 				$request->file('imagem')->move('livros', $nome);

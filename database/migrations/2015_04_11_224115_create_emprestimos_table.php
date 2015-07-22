@@ -22,8 +22,6 @@ class CreateEmprestimosTable extends Migration {
             $table->foreign('dono_id')->references('id')->on('users');
             $table->unsignedInteger('solicitante_id');
             $table->foreign('solicitante_id')->references('id')->on('users');
-            $table->unsignedInteger('ponto');
-            $table->foreign('ponto')->references('id')->on('pontos');
             $table->date('data');
             $table->text('obs')->nullable();
             $table->timestamps();

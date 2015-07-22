@@ -12,6 +12,7 @@
 <script type="text/javascript" src="{{ asset('js/plugins/spinner/jquery.mousewheel.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.ui.datepicker-pt-BR.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('js/plugins/forms/uniform.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/plugins/forms/jquery.cleditor.js') }}"></script>

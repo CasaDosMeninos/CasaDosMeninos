@@ -17,7 +17,6 @@ class PontoController extends Controller {
 	public function index()
 	{
 		$pontos = Ponto::has('livros')->get();
-
         return view('ponto.index', compact('pontos'));
 	}
 

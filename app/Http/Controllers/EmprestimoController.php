@@ -5,6 +5,13 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use Auth;
+use File;
+use App\Livro;
+use App\Emprestimo;
+use App\Status;
+use App\User;
+
 class EmprestimoController extends Controller {
 
 	/**
@@ -12,9 +19,10 @@ class EmprestimoController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($id)
 	{
-		//
+        $livro = Livro::find($id);
+		return view('emprestimo.index', compact('livro'));
 	}
 
 	/**
@@ -32,9 +40,23 @@ class EmprestimoController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store($livro)
+	public function store(Request $request)
 	{
-		//
+        $emprestimo = new Emprestimo();
+        $livro = Livro::find($request->input('id'));
+
+        $emprestimo->fill($request->input());
+
+        $emprestimo->livro()->associate($livro);
+        $emprestimo->status()->associate(Status::where('nome', 'Solicitado')->first());
+        $emprestimo->dono()->associate($livro->dono);
+        $emprestimo->solicitante()->associate(User::find(Auth::user()->id));
+
+        $emprestimo->save();
+
+        return redirect()
+            ->route('livro.consultar')
+            ->withInput(['cadastro' => 'Pedido de livro realizado com sucesso']);
 	}
 
 	/**

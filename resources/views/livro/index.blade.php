@@ -22,7 +22,7 @@
             <tr>
 	            <th>Título</th>
 	            <th>Autor</th>
-	            <th>Editora</th>
+	            <th>Status</th>
 	            <th>Dono</th>
             </tr>
         </thead>
@@ -31,7 +31,7 @@
             <tr>
 	            <td>{{ $livro->id }};{{ $livro->titulo }}</td>
 	            <td>{{ $livro->autor }}</td>
-	            <td>{{ $livro->editora }}</td>
+	            <td>{{ $livro->status->nome }}</td>
 	            <td>{{ $livro->dono->name }}</td>
             </tr>
             @endforeach

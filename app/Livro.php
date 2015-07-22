@@ -21,4 +21,11 @@ class Livro extends Model {
 		return $this->belongsTo('App\Ponto', 'ponto_id');
 	}
 
+    public function status() {
+        return $this->belongsTo('App\Status', 'status_id');
+    }
+
+    public function emprestimos() {
+        return $this->hasMany('App\Emprestimo', 'livro_id');
+    }
 }

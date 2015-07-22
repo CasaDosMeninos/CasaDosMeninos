@@ -200,13 +200,16 @@ $(function() {
 
 	//===== Datepicker =====//
 
-	$( ".datepicker" ).datepicker({ 
+	$( ".datepicker" ).datepicker({
+        language: 'pt-BR',
 		defaultDate: +7,
 		autoSize: true,
 		appendText: '(dd-mm-yyyy)',
 		dateFormat: 'dd-mm-yy',
-		numberOfMonths: 1
-	});	
+		numberOfMonths: 1,
+        altField: ".hidDatePicker",
+        altFormat: "yy-mm-dd"
+	});
 
 /* UI stuff
 ================================================== */

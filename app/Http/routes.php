@@ -26,7 +26,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('livro/ponto', 		    ['as' => 'livro.ponto', 'uses' => 'LivroController@ponto']);
     Route::get('livro/ver/{id}',	    ['as' => 'livro.ver', 'uses' => 'LivroController@show']);
 
-    Route::get('emprestimo/{livro}', 'EmprestimoController@store');
+    Route::get('emprestimo/{livro}', 'EmprestimoController@index');
+    Route::post('emprestimo/gravar', 'EmprestimoController@store');
 });
 
 /* Admin group */

@@ -14,12 +14,22 @@
             <div class="controlB">
                 <ul>
 
-                    <li>
-                        <a href="{{ action('EmprestimoController@store', ['livro' => $livro->id]) }}" title="">
-                            <img src="{{ asset('images/icons/control/32/issue.png') }}" alt="" />
-                            <span>Pedir Emprestado</span>
-                        </a>
-                    </li>
+                    @if($livro->status->nome == 'Disponível')
+                        <li>
+                            <a href="{{ action('EmprestimoController@index', ['livro' => $livro->id]) }}" title="">
+                                <img src="{{ asset('images/icons/control/32/issue.png') }}" alt="" />
+                                <span>Pedir Emprestado</span>
+                            </a>
+                        </li>
+                    @else
+                        <li>
+                            <a href="{{ action('EmprestimoController@store', ['livro' => $livro->id]) }}" title="">
+                                <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
+                                <span>Indisponível</span>
+                            </a>
+                        </li>
+                    @endif
+
                 </ul>
                 <div class="clear"></div>
             </div>
@@ -44,6 +54,8 @@
                         <dd>
                             @if($livro->imagem == FALSE)
                                 <img src="{{ asset('images/sem_imagem.gif') }}" width="100" height="100">
+                            @else
+                                <img src="{{ asset("livros/{$livro->id}.jpg") }}" width="100" height="100">
                             @endif
                         </dd>
 

@@ -63,6 +63,10 @@ class LivroController extends Controller {
 
         // Se o livro tiver imagem
         if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
+
+            if (!File::exists('livros'))
+                \File::makeDirectory('livros');
+
             $nome = $livro->id . '.' . $request->file('imagem')->getClientOriginalExtension();
             $request->file('imagem')->move('livros', $nome);
             $livro->imagem = TRUE;

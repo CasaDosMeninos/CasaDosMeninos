@@ -24,7 +24,6 @@ class RouteServiceProvider extends ServiceProvider {
 	{
 		parent::boot($router);
 
-		$router->model('livro', 'App\Livro');
 	}
 
 	/**
