@@ -222,6 +222,19 @@ $(function() {
 	
 	$('.tipN').tipsy({gravity: 'n',fade: true});
 
+    //===== Dialog =====//
+
+    $( "#dialog-message" ).dialog({
+        autoOpen: false,
+        modal: true,
+        width:400
+    });
+
+    $( "#opener" ).click(function() {
+        $( "#dialog-message" ).dialog( "open" );
+        return false;
+    });
+
 /* Tables
 ================================================== */
 

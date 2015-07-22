@@ -16,7 +16,7 @@
 
                     @if($livro->status->nome == 'Disponível')
                         <li>
-                            <a href="{{ action('EmprestimoController@index', ['livro' => $livro->id]) }}" title="">
+                            <a id="opener" href="" title="">
                                 <img src="{{ asset('images/icons/control/32/issue.png') }}" alt="" />
                                 <span>Pedir Emprestado</span>
                             </a>
@@ -97,6 +97,10 @@
                 <div id="googleMap" style="width:100%;height:380px;"></div>
             </div>
         </div>
+    </div>
+
+    <div id="dialog-message">
+        @include('emprestimo.dialog')
     </div>
 @stop
 
