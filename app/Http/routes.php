@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -31,7 +30,7 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 /* Admin group */
-Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => ['auth', 'App\Http\Middleware\AdminMiddleware'], 'namespace' => 'Admin', 'prefix' => 'admin'], function() {
     // Temas
 	Route::get('temas',             ['as' => 'admin.temas', 'uses' => 'TemaController@index']);
     Route::get('tema/ver/{id}',     'TemaController@edit');
@@ -61,5 +60,4 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Admin', 'prefix' => 'admin
 function setActive($route, $class = '')
 {
     return in_array(Route::currentRouteName(), $route) ? 'active' : $class;
-
 }

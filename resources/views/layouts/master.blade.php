@@ -86,6 +86,7 @@
                 <li class="last"><a href="#" title="">Todas Solicitações</a></li>
             </ul>
         </li>
+        @if (Auth::user()->admin)
         <li class="admin-user">
             <a href="#" title="" class="{{ setActive(['admin.temas', 'admin.validar', 'admin.livros', 'admin.pontos'], 'exp') }}"><span>Administrador</span></a>
             <ul class="sub">
@@ -95,6 +96,7 @@
                 <li class="last"><a href="{{ route('admin.pontos') }}" title="">Pontos de Troca</a></li>
             </ul>
         </li>
+        @endif
     </ul>
     @show
 </div>

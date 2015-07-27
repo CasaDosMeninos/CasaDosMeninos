@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Auth;
-use File;
+use Mail;
 use App\Livro;
 use App\Emprestimo;
 use App\Status;
@@ -53,6 +53,13 @@ class EmprestimoController extends Controller {
         $emprestimo->solicitante()->associate(User::find(Auth::user()->id));
 
         $emprestimo->save();
+
+        // Envia e-mail
+        Mail::send('emails.pedir', ['emprestimo' => $emprestimo], function($message) {
+            $message->subject('Pedido de empréstimo de livro');
+            $message->sender('admin@rasouza.com.br');
+            $message->to('alves.wm@gmail.com');
+        });
 
         return redirect()
             ->route('livro.consultar')
