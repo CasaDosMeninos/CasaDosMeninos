@@ -17,7 +17,9 @@ Route::post('auth/login',	['as' => 'auth.postLogin',	'uses' => 'AuthController@p
 
 Route::group(['middleware' => 'auth'], function() {
     // Ponto de troca
-    Route::get('pontos',                ['as' => 'ponto.index', 'uses' => 'PontoController@index']);
+    Route::get('pontos',                ['as' => 'ponto.index',     'uses' => 'PontoController@index']);
+    Route::get('ponto/ver/{id}',        ['as' => 'ponto.ver',       'uses' => 'PontoController@show']);
+    Route::get('ponto/livros/{id}',     ['as' => 'ponto.livros',    'uses' => 'PontoController@livros']);
 
     // Livros
 	Route::get('livro/cadastrar',	    ['as' => 'livro.cadastrar',     'uses' => 'LivroController@create']);

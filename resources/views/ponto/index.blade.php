@@ -30,7 +30,7 @@
                     @foreach ($pontos as $ponto)
                     <tr>
                         <td>
-                            <a href="#" title="{{ $ponto->endereco }}" class="tipN">
+                            <a href="{{ action('PontoController@show', ['id' => $ponto->id]) }}" title="{{ $ponto->endereco }}" class="tipN">
                                 <strong>{{ $ponto->nome }}</strong>
                             </a>
                         </td>
