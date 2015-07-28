@@ -14,7 +14,7 @@
             <div class="controlB">
                 <ul>
                     <li>
-                        <a href="{{ action('Admin\TemaController@destroy', ['id' => $tema->id]) }}" title="">
+                        <a id="deletar" href="#" title="">
                             <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
                             <span>Deletar</span>
                         </a>
@@ -26,6 +26,13 @@
     </div>
 
     <div class="line"></div>
+
+    <div id="dialog-confirm" class="hide" title="Apagar todos os livros deste tema?">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+            Todos os livros que pertencem a este tema serão deletados. Você tem certeza?
+        </p>
+    </div>
 @stop
 
 @section('content')
@@ -76,4 +83,21 @@
             $.jGrowl("{{ old('cadastro') }}");
         </script>
     @endif
+
+    <script type="text/javascript">
+        $('a#deletar').click(function(){
+            $('#dialog-confirm').dialog({
+                height:140,
+                modal: true,
+                buttons: {
+                    "Apagar todos os livros": function () {
+                        window.location.href = '{{ action('Admin\TemaController@destroy', ['id' => $tema->id]) }}';
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    </script>
 @stop

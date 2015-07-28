@@ -83,7 +83,9 @@ class TemaController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        Tema::destroy($id);
+        $tema = Tema::find($id);
+        $tema->livros()->delete();
+        $tema->delete();
         return redirect()
             ->route('admin.temas')
             ->withInput(['cadastro' => 'Tema deletado com sucesso']);
