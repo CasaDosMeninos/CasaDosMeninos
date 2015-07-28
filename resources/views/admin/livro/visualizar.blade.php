@@ -23,7 +23,7 @@
                     @endif
 
                     <li>
-                        <a href="{{ action('Admin\LivroController@destroy', ['id' => $livro->id]) }}" title="">
+                        <a id="deletar" href="#" title="">
                             <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
                             <span>Deletar</span>
                         </a>
@@ -35,6 +35,13 @@
     </div>
 
     <div class="line"></div>
+
+    <div id="dialog-confirm" class="hide" title="Apagar todos os empréstimos deste livro?">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+            Todos os registros de empréstimos pertencentes a este livro serão deletados. Você tem certeza?
+        </p>
+    </div>
 @stop
 
 @section('content')
@@ -138,5 +145,20 @@
 
     <script type="text/javascript">
         $('select[name="tema_id"] option[value={{ $livro->tema_id }}]').attr('selected', 'selected');
+
+        $('a#deletar').click(function(){
+            $('#dialog-confirm').dialog({
+                height:160,
+                modal: true,
+                buttons: {
+                    "Apagar todos os empréstimos": function () {
+                        window.location.href = '{{ action('Admin\LivroController@destroy', ['id' => $livro->id]) }}';
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
     </script>
 @stop

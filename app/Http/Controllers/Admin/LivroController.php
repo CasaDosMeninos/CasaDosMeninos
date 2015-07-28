@@ -86,7 +86,9 @@ class LivroController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        Livro::destroy($id);
+        $livro = Livro::find($id);
+        $livro->emprestimos()->withTrashed()->forceDelete();
+        $livro->delete();
         return redirect()
             ->route('admin.livros')
             ->withInput(['cadastro' => 'Livro deletado com sucesso']);
