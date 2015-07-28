@@ -28,10 +28,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('livro/ver/{id}',	    ['as' => 'livro.ver',           'uses' => 'LivroController@show']);
 
     // Empréstimos
-    Route::get('emprestimo/meu',                    ['as' => 'emprestimo.meus_pedidos', 'uses' => 'EmprestimoController@meusPedidos']);
-    Route::get('emprestimo/solicitacoes',           ['as' => 'emprestimo.solicitacoes',     'uses' => 'EmprestimoController@paraMim']);
-    Route::get('emprestimo/solicitacao/ver/{id}',   ['as' => 'emprestimo.solicitacao',  'uses' => 'EmprestimoController@solicitacao']);
+    Route::get('emprestimo/meu',                    ['as' => 'emprestimo.meus_pedidos', 'uses' => 'EmprestimoController@pedidosMeus']);
+    Route::get('emprestimo/solicitacoes',           ['as' => 'emprestimo.solicitacoes', 'uses' => 'EmprestimoController@pedidosParaMim']);
     Route::get('emprestimo/meu/ver/{id}',           ['as' => 'emprestimo.meu_pedido',   'uses' => 'EmprestimoController@meuPedido']);
+    Route::get('emprestimo/solicitacao/ver/{id}',   ['as' => 'emprestimo.solicitacao',  'uses' => 'EmprestimoController@solicitacao']);
+    Route::get('emprestimo/todos',                  ['as' => 'emprestimo.todos',        'uses' => 'EmprestimoController@todos']);
+    Route::get('emprestimo/concluir',               ['as' => 'emprestimo.concluir',     'uses' => 'EmprestimoController@concluir']);
+    Route::get('emprestimo/historico',              ['as' => 'emprestimo.historico',    'uses' => 'EmprestimoController@historico']);
     Route::get('emprestimo/apagar/{id}',            ['as' => 'emprestimo.apagar',       'uses' => 'EmprestimoController@destroy']);
     Route::get('emprestimo/update/{id}/{acao}',     ['as' => 'emprestimo.update',       'uses' => 'EmprestimoController@update']);
     Route::post('emprestimo/gravar',                ['as' => 'emprestimo.gravar',       'uses' => 'EmprestimoController@store']);

@@ -77,15 +77,15 @@
         <li class="sign-post">
             <a href="{{ route('ponto.index') }}" class="{{ setActive(['ponto.index']) }}" title=""><span>Pontos de Troca</span></a>
         </li>
-        <li class="clock"><a href="#" title=""><span>Histórico</span></a></li>
         <li class="tables"><a href="#" title="" class="exp"><span>Solicitações</span><strong>8</strong></a>
             <ul class="sub">
                 <li><a href="{{ route('emprestimo.meus_pedidos') }}" title="">Meus pedidos</a></li>
                 <li><a href="{{ route('emprestimo.solicitacoes') }}" title="">Solicitações para mim</a></li>
-                <li><a href="#" title="">Concluir Empréstimo</a></li>
-                <li class="last"><a href="#" title="">Todas Solicitações</a></li>
+                <li><a href="{{ route('emprestimo.concluir') }}" title="">Concluir Empréstimo</a></li>
+                <li class="last"><a href="{{ route('emprestimo.todos') }}" title="">Todas Solicitações</a></li>
             </ul>
         </li>
+        <li class="clock"><a href="{{ route('emprestimo.historico') }}" title=""><span>Histórico</span></a></li>
         @if (Auth::user()->admin)
         <li class="admin-user">
             <a href="#" title="" class="{{ setActive(['admin.temas', 'admin.validar', 'admin.livros', 'admin.pontos'], 'exp') }}"><span>Administrador</span></a>

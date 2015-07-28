@@ -21,14 +21,14 @@
                         </a>
                     </li>
 
-                    @if($modo == 'pedido')
+                    @if($modo == 'pedido' && $emprestimo->solicitante->id == Auth::user()->id && !$emprestimo->trashed())
                         <li>
                             <a href="{{ action('EmprestimoController@destroy', ['emprestimo' => $emprestimo->id]) }}" title="">
                                 <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
                                 <span>Cancelar pedido</span>
                             </a>
                         </li>
-                    @elseif($modo == 'solicitacao')
+                    @elseif($modo == 'solicitacao' && $emprestimo->status->nome == 'Solicitado' && $emprestimo->dono->id == Auth::user()->id && !$emprestimo->trashed())
                         <li>
                             <a href="{{ action('EmprestimoController@update', ['emprestimo' => $emprestimo->id, 'acao' => 'aceitar']) }}" title="">
                                 <img src="{{ asset('images/icons/control/32/check.png') }}" alt="" />
@@ -39,6 +39,13 @@
                             <a href="{{ action('EmprestimoController@update', ['emprestimo' => $emprestimo->id, 'acao' => 'recusar']) }}" title="">
                                 <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
                                 <span>Recusar</span>
+                            </a>
+                        </li>
+                    @elseif($modo == 'solicitacao' && $livro->status->nome == 'Emprestado' && $emprestimo->dono->id == Auth::user()->id && !$emprestimo->trashed())
+                        <li>
+                            <a href="{{ action('EmprestimoController@update', ['emprestimo' => $emprestimo->id, 'acao' => 'concluir']) }}" title="">
+                                <img src="{{ asset('images/icons/control/32/check.png') }}" alt="" />
+                                <span>Concluir</span>
                             </a>
                         </li>
                     @endif
@@ -90,7 +97,6 @@
                             <dt class="pt20">Solicitante</dt>
                             <dd>{{ $emprestimo->solicitante->name }}</dd>
                         @endif
-
                         <dt class="pt20">Observações</dt>
                         <dd>{{ $emprestimo->obs }}</dd>
 

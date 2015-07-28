@@ -1,11 +1,15 @@
 @extends('layouts.master')
 
 @section('title')
-    Solicitações para mim
+    Pedidos
 @stop
 
 @section('subtitle')
-    Aceite ou recuse um pedido de empréstimo de livro para você
+    @if($modo == 'solicitacao')
+        Aceite ou recuse um pedido de empréstimo de livro para você
+    @elseif($modo == 'pedido')
+        Aqui você pode consultar todos os pedidos de livro que você já fez e não estão concluidos
+    @endif
 @stop
 
 @section('sub-nav')
@@ -23,7 +27,15 @@
                 <th>Título</th>
                 <th>Data do pedido</th>
                 <th>Data da devolução</th>
-                <th>Solicitante</th>
+                @if($modo == 'solicitacao')
+                    <th>Solicitante</th>
+                @elseif($modo == 'pedido')
+                    <th>Dono</th>
+                @elseif($modo == 'todos')
+                    <th>Solicitante</th>
+                    <th>Dono</th>
+                @endif
+
                 <th>Status</th>
             </tr>
             </thead>
@@ -33,7 +45,16 @@
                     <td>{{ $emprestimo->id }};{{ $emprestimo->livro->titulo }}</td>
                     <td>{{ $emprestimo->created_at->format('d/m/Y') }}</td>
                     <td>{{ $emprestimo->data->format('d/m/Y') }}</td>
-                    <td>{{ $emprestimo->solicitante->name }}</td>
+
+                    @if($modo == 'solicitacao')
+                        <td>{{ $emprestimo->solicitante->name }}</td>
+                    @elseif($modo == 'pedido')
+                        <td>{{ $emprestimo->dono->name }}</td>
+                    @elseif($modo == 'todos')
+                        <td>{{ $emprestimo->solicitante->name }}</td>
+                        <td>{{ $emprestimo->dono->name }}</td>
+                    @endif
+
                     <td>{{ $emprestimo->status->nome }}</td>
                 </tr>
             @endforeach
@@ -58,7 +79,12 @@
                 "targets": 0,
                 "render": function ( data, type, full, meta ) {
                     var emprestimo = data.split(';');
-                    return '<a href="/emprestimo/solicitacao/ver/'+ emprestimo[0] +'">'+ emprestimo[1] +'</a>';
+                    @if($modo == 'solicitacao' || $modo == 'todos')
+                        return '<a href="/emprestimo/solicitacao/ver/'+ emprestimo[0] +'">'+ emprestimo[1] +'</a>';
+                    @elseif($modo == 'pedido')
+                        return '<a href="/emprestimo/meu/ver/'+ emprestimo[0] +'">'+ emprestimo[1] +'</a>';
+                    @endif
+
                 }
             }],
             "language": {

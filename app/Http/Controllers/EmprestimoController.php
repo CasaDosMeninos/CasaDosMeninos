@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Auth;
+use Jenssegers\Date\Date;
 use Mail;
 use DB;
 
@@ -21,14 +22,63 @@ class EmprestimoController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function meusPedidos()
+	public function pedidosMeus()
 	{
+        $modo = 'pedido';
         $emprestimos = Emprestimo::where('solicitante_id', Auth::user()->id)
-            ->whereHas('status', function($q) { $q->where('nome', 'Solicitado'); })
-            ->orWhereHas('status', function($q) { $q->where('nome', 'Emprestado'); })
+            ->where(function($query){
+                $query->whereHas('status', function($q) { $q->where('nome', 'Solicitado'); });
+                $query->orWhereHas('status', function($q) { $q->where('nome', 'Emprestado'); });
+            })
             ->get();
-        return view('emprestimo.meus_pedidos', compact('emprestimos'));
+        return view('emprestimo.pedidos', compact('emprestimos', 'modo'));
 	}
+
+    public function pedidosParaMim()
+    {
+        $modo = 'solicitacao';
+        $emprestimos = Emprestimo::where('dono_id', Auth::user()->id)
+            ->whereHas('status', function($q) {
+                $q->where('nome', 'Solicitado');
+            })
+            ->get();
+
+
+        return view('emprestimo.pedidos', compact('emprestimos', 'modo'));
+    }
+
+    public function concluir()
+    {
+        $modo = 'solicitacao';
+        $emprestimos = Emprestimo::where('dono_id', Auth::user()->id)
+            ->whereHas('status', function($q) {
+                $q->where('nome', 'Emprestado');
+            })
+            ->get();
+
+        return view('emprestimo.pedidos', compact('emprestimos', 'modo'));
+    }
+
+    public function todos()
+    {
+        $modo = 'todos';
+        $emprestimos = Emprestimo::withTrashed()->get();
+
+        return view('emprestimo.pedidos', compact('emprestimos', 'modo'));
+    }
+
+    public function historico()
+    {
+        $modo = 'todos';
+        $emprestimos = Emprestimo::onlyTrashed()
+            ->where(function($q) {
+                $q->where('dono_id', Auth::user()->id);
+                $q->orWhere('solicitante_id', Auth::user()->id);
+            })
+            ->get();
+
+        return view('emprestimo.pedidos', compact('emprestimos', 'modo'));
+    }
 
     public function meuPedido($id)
     {
@@ -38,26 +88,16 @@ class EmprestimoController extends Controller {
         return view('emprestimo.pedido', compact('emprestimo', 'livro', 'modo'));
     }
 
-    public function paraMim()
-    {
 
-        $emprestimos = Emprestimo::where('dono_id', Auth::user()->id)
-            ->whereHas('status', function($q) {
-                $q->where('nome', 'Solicitado');
-            })
-            ->get();
-
-
-        return view('emprestimo.para_mim', compact('emprestimos'));
-    }
 
     public function solicitacao($id)
     {
         $modo = 'solicitacao';
-        $emprestimo = Emprestimo::find($id);
+        $emprestimo = Emprestimo::withTrashed()->find($id);
         $livro = $emprestimo->livro;
         return view('emprestimo.pedido', compact('emprestimo', 'livro', 'modo'));
     }
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -80,7 +120,7 @@ class EmprestimoController extends Controller {
 
         // Envia e-mail
         Mail::send('emails.pedir', ['emprestimo' => $emprestimo], function($message) {
-            $message->subject('Pedido de empr�stimo de livro');
+            $message->subject('Pedido de empréstimo de livro');
             $message->sender('admin@rasouza.com.br');
             $message->to('alves.wm@gmail.com');
         });
@@ -113,6 +153,19 @@ class EmprestimoController extends Controller {
             $emprestimo->save();
             $emprestimo->delete();
         }
+        elseif ($acao == 'concluir') {
+            $emprestimo->status()->associate(Status::where('nome', 'Concluido')->first());
+            $emprestimo->data = Date::today();
+            $livro = $emprestimo->livro;
+            $livro->status()->associate(Status::where('nome', 'Disponível')->first());
+            $livro->save();
+            $emprestimo->save();
+            $emprestimo->delete();
+
+            return redirect()
+                ->route('emprestimo.concluir')
+                ->withInput(['cadastro' => 'Pedido atualizado com sucesso']);
+        }
 
 
         return redirect()
@@ -128,7 +181,7 @@ class EmprestimoController extends Controller {
 	 */
 	public function destroy($id)
 	{
-        Emprestimo::destroy($id);
+        Emprestimo::find($id)->forceDelete();
 
         return redirect()
             ->route('emprestimo.meus_pedidos')
