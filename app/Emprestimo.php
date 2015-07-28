@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Emprestimo extends Model {
 
 	protected $fillable = ['data', 'obs'];
+    protected $dates = ['data'];
 
     public function status() {
         return $this->belongsTo('App\Status', 'status_id');

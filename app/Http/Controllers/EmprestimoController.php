@@ -19,21 +19,18 @@ class EmprestimoController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index($id)
+	public function meusPedidos()
 	{
-        $livro = Livro::find($id);
-		return view('emprestimo.index', compact('livro'));
+        $emprestimo = Emprestimo::where('solicitante_id', Auth::user()->id)->get();
+        return view('emprestimo.meus_pedidos', compact('emprestimo'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+    public function meuPedido($id)
+    {
+        $emprestimo = Emprestimo::find($id);
+        $livro = $emprestimo->livro;
+        return view('emprestimo.meu_pedido', compact('emprestimo', 'livro'));
+    }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -66,27 +63,6 @@ class EmprestimoController extends Controller {
             ->withInput(['cadastro' => 'Pedido de livro realizado com sucesso']);
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
 
 	/**
 	 * Update the specified resource in storage.
@@ -107,7 +83,11 @@ class EmprestimoController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+        Emprestimo::destroy($id);
+
+        return redirect()
+            ->route('emprestimo.meus_pedidos')
+            ->withInput(['cadastro' => 'Pedido cancelado com sucesso']);
 	}
 
 }

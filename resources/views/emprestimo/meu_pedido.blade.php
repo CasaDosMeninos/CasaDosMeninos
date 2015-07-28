@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Visualizar Livro
+    Visualizar Empréstimo
 @stop
 
 @section('subtitle')
@@ -14,28 +14,19 @@
             <div class="controlB">
                 <ul>
 
-                    @if($livro->status->nome == 'Disponível' && $emprestimo->count() == 0)
-                        <li>
-                            <a id="opener" href="" title="">
-                                <img src="{{ asset('images/icons/control/32/issue.png') }}" alt="" />
-                                <span>Pedir Emprestado</span>
-                            </a>
-                        </li>
-                    @elseif($emprestimo->count() != 0)
-                            <li>
-                                <a href="#" title="">
-                                    <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
-                                    <span>Aguardando resposta</span>
-                                </a>
-                            </li>
-                    @elseif($livro->status->nome == 'Emprestado')
-                        <li>
-                            <a href="#" title="">
-                                <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
-                                <span>Indisponível</span>
-                            </a>
-                        </li>
-                    @endif
+                    <li>
+                        <a href="{{ action('LivroController@show', ['livro' => $livro->id]) }}" title="">
+                            <img src="{{ asset('images/icons/control/32/search.png') }}" alt="" />
+                            <span>Ver livro</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ action('EmprestimoController@destroy', ['emprestimo' => $emprestimo->id]) }}" title="">
+                            <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
+                            <span>Cancelar pedido</span>
+                        </a>
+                    </li>
 
                 </ul>
                 <div class="clear"></div>
@@ -52,7 +43,7 @@
             <div class="widget">
                 <div class="title">
                     <img src="{{ asset('images/icons/dark/list.png') }}" alt="" class="titleIcon" />
-                    <h6>Livro</h6>
+                    <h6>Empréstimo</h6>
                 </div>
 
                 <div class="body">
@@ -66,29 +57,23 @@
                             @endif
                         </dd>
 
-                        <dt class="pt20">ISBN</dt>
-                        <dd>{{ $livro->isbn }}</dd>
-
                         <dt class="pt20">Título</dt>
                         <dd>{{ $livro->titulo }}</dd>
 
-                        <dt class="pt20">Edição</dt>
-                        <dd>{{ $livro->edicao }}</dd>
+                        <dt class="pt20">Status</dt>
+                        <dd>{{ $livro->status->nome }}</dd>
 
-                        <dt class="pt20">Ano</dt>
-                        <dd>{{ $livro->ano }}</dd>
+                        <dt class="pt20">Data do pedido</dt>
+                        <dd>{{ $emprestimo->created_at->format('d/m/Y') }}</dd>
 
-                        <dt class="pt20">Páginas</dt>
-                        <dd>{{ $livro->paginas }}</dd>
+                        <dt class="pt20">Data da devolução</dt>
+                        <dd>{{ $emprestimo->data->format('d/m/Y') }}</dd>
 
-                        <dt class="pt20">Editora</dt>
-                        <dd>{{ $livro->editora }}</dd>
+                        <dt class="pt20">Dono</dt>
+                        <dd>{{ $emprestimo->dono->name }}</dd>
 
-                        <dt class="pt20">Autor</dt>
-                        <dd>{{ $livro->autor }}</dd>
-
-                        <dt class="pt20">Tema</dt>
-                        <dd>{{ $livro->tema->nome }}</dd>
+                        <dt class="pt20">Observações</dt>
+                        <dd>{{ $emprestimo->obs }}</dd>
 
                         <dt class="pt20">Ponto de troca</dt>
                         <dd>{{ $livro->ponto->nome }}</dd>

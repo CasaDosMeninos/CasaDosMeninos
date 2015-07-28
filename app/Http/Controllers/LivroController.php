@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 use File;
+use DB;
 
 use App\User;
 use App\Tema;
 use App\Ponto;
 use App\Livro;
 use App\Status;
+use App\Emprestimo;
 
 class LivroController extends Controller {
 
@@ -31,7 +33,17 @@ class LivroController extends Controller {
     public function show($id)
     {
         $livro = Livro::find($id);
-        return view('livro.visualizar', compact('livro'));
+
+        // Verifica se já existe um pedido em andamento
+        $emprestimo = DB::table('emprestimos');
+        $emprestimo->join('status', 'status_id', '=', 'status.id')
+                ->where('solicitante_id', Auth::user()->id)
+                ->where('livro_id', $livro->id)
+                ->where('status.nome', 'Solicitado')
+                ->get();
+
+        \Debugbar::info($emprestimo->count());
+        return view('livro.visualizar', compact('livro', 'emprestimo'));
     }
 
 	/**

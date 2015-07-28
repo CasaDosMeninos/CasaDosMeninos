@@ -16,8 +16,10 @@ Route::get('auth/logout',	['as' => 'auth.logout',		'uses' => 'AuthController@log
 Route::post('auth/login',	['as' => 'auth.postLogin',	'uses' => 'AuthController@postLogin']);	
 
 Route::group(['middleware' => 'auth'], function() {
+    // Ponto de troca
     Route::get('pontos',                ['as' => 'ponto.index', 'uses' => 'PontoController@index']);
 
+    // Livros
 	Route::get('livro/cadastrar',	    ['as' => 'livro.cadastrar',	'uses' => 'LivroController@create']);
 	Route::get('livro/consultar',	    ['as' => 'livro.consultar',	'uses' => 'LivroController@index']);
 	Route::post('livro/gravar', 	    ['as' => 'livro.gravar', 'uses' => 'LivroController@store']);
@@ -25,7 +27,10 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('livro/ponto', 		    ['as' => 'livro.ponto', 'uses' => 'LivroController@ponto']);
     Route::get('livro/ver/{id}',	    ['as' => 'livro.ver', 'uses' => 'LivroController@show']);
 
-    Route::get('emprestimo/{livro}', 'EmprestimoController@index');
+    // Empréstimos
+    Route::get('emprestimo/meu', ['as' => 'emprestimo.meus_pedidos', 'uses' => 'EmprestimoController@meusPedidos']);
+    Route::get('emprestimo/meu/ver/{id}', 'EmprestimoController@meuPedido');
+    Route::get('emprestimo/apagar/{id}', 'EmprestimoController@destroy');
     Route::post('emprestimo/gravar', 'EmprestimoController@store');
 });
 
@@ -47,7 +52,7 @@ Route::group(['middleware' => ['auth', 'App\Http\Middleware\AdminMiddleware'], '
     Route::get('livro/apagar/{id}',  'LivroController@destroy');
     Route::post('livro/atualizar',   'LivroController@update');
 
-    // Pontos
+    // Pontos de troca
     Route::get('pontos',             ['as' => 'admin.pontos', 'uses' => 'PontoController@index']);
     Route::get('ponto/ver/{id}',     'PontoController@edit');
     Route::get('ponto/apagar/{id}',  'PontoController@destroy');
