@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use Auth;
 use Mail;
+use DB;
+
 use App\Livro;
 use App\Emprestimo;
 use App\Status;
@@ -21,15 +23,40 @@ class EmprestimoController extends Controller {
 	 */
 	public function meusPedidos()
 	{
-        $emprestimo = Emprestimo::where('solicitante_id', Auth::user()->id)->get();
-        return view('emprestimo.meus_pedidos', compact('emprestimo'));
+        $emprestimos = Emprestimo::where('solicitante_id', Auth::user()->id)
+            ->whereHas('status', function($q) { $q->where('nome', 'Solicitado'); })
+            ->orWhereHas('status', function($q) { $q->where('nome', 'Emprestado'); })
+            ->get();
+        return view('emprestimo.meus_pedidos', compact('emprestimos'));
 	}
 
     public function meuPedido($id)
     {
+        $modo = 'pedido';
         $emprestimo = Emprestimo::find($id);
         $livro = $emprestimo->livro;
-        return view('emprestimo.meu_pedido', compact('emprestimo', 'livro'));
+        return view('emprestimo.pedido', compact('emprestimo', 'livro', 'modo'));
+    }
+
+    public function paraMim()
+    {
+
+        $emprestimos = Emprestimo::where('dono_id', Auth::user()->id)
+            ->whereHas('status', function($q) {
+                $q->where('nome', 'Solicitado');
+            })
+            ->get();
+
+
+        return view('emprestimo.para_mim', compact('emprestimos'));
+    }
+
+    public function solicitacao($id)
+    {
+        $modo = 'solicitacao';
+        $emprestimo = Emprestimo::find($id);
+        $livro = $emprestimo->livro;
+        return view('emprestimo.pedido', compact('emprestimo', 'livro', 'modo'));
     }
 
 	/**
@@ -70,9 +97,27 @@ class EmprestimoController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id, $acao)
 	{
-		//
+		$emprestimo = Emprestimo::find($id);
+
+        if ($acao == 'aceitar') {
+            $emprestimo->status()->associate(Status::where('nome', 'Emprestado')->first());
+            $livro = $emprestimo->livro;
+            $livro->status()->associate(Status::where('nome', 'Emprestado')->first());
+            $livro->save();
+            $emprestimo->save();
+        }
+        elseif ($acao == 'recusar') {
+            $emprestimo->status()->associate(Status::where('nome', 'Recusado')->first());
+            $emprestimo->save();
+            $emprestimo->delete();
+        }
+
+
+        return redirect()
+            ->route('emprestimo.solicitacoes')
+            ->withInput(['cadastro' => 'Pedido atualizado com sucesso']);
 	}
 
 	/**

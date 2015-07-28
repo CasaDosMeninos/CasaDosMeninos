@@ -14,6 +14,7 @@ class StatusTableSeeder extends Seeder {
 
         Status::create(['nome' => 'Disponível']);
         Status::create(['nome' => 'Emprestado']);
+        Status::create(['nome' => 'Recusado']);
         Status::create(['nome' => 'Solicitado']);
         Status::create(['nome' => 'Concluido']);
     }

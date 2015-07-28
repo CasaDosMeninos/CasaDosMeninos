@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-    Meus pedidos
+    Solicitações para mim
 @stop
 
 @section('subtitle')
-    Aqui você pode consultar todos os pedidos de livro que você já fez e não estão concluidos
+    Aceite ou recuse um pedido de empréstimo de livro para você
 @stop
 
 @section('sub-nav')
@@ -14,7 +14,7 @@
 @section('content')
     <div class="widget">
         <div class="title"><img src="{{ asset('images/icons/dark/books.png') }}" alt="" class="titleIcon" />
-            <h6>Meus pedidos</h6>
+            <h6>Solicitações</h6>
         </div>
 
         <table cellpadding="0" cellspacing="0" border="0" class="display dTables">
@@ -23,7 +23,7 @@
                 <th>Título</th>
                 <th>Data do pedido</th>
                 <th>Data da devolução</th>
-                <th>Dono</th>
+                <th>Solicitante</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -33,7 +33,7 @@
                     <td>{{ $emprestimo->id }};{{ $emprestimo->livro->titulo }}</td>
                     <td>{{ $emprestimo->created_at->format('d/m/Y') }}</td>
                     <td>{{ $emprestimo->data->format('d/m/Y') }}</td>
-                    <td>{{ $emprestimo->dono->name }}</td>
+                    <td>{{ $emprestimo->solicitante->name }}</td>
                     <td>{{ $emprestimo->status->nome }}</td>
                 </tr>
             @endforeach
@@ -58,7 +58,7 @@
                 "targets": 0,
                 "render": function ( data, type, full, meta ) {
                     var emprestimo = data.split(';');
-                    return '<a href="/emprestimo/meu/ver/'+ emprestimo[0] +'">'+ emprestimo[1] +'</a>';
+                    return '<a href="/emprestimo/solicitacao/ver/'+ emprestimo[0] +'">'+ emprestimo[1] +'</a>';
                 }
             }],
             "language": {

@@ -1,11 +1,14 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\softDeletes;
 
 class Emprestimo extends Model {
 
+    use softDeletes;
+
 	protected $fillable = ['data', 'obs'];
-    protected $dates = ['data'];
+    protected $dates = ['data', 'deleted_at'];
 
     public function status() {
         return $this->belongsTo('App\Status', 'status_id');

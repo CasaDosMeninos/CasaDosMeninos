@@ -81,7 +81,7 @@
         <li class="tables"><a href="#" title="" class="exp"><span>Solicitações</span><strong>8</strong></a>
             <ul class="sub">
                 <li><a href="{{ route('emprestimo.meus_pedidos') }}" title="">Meus pedidos</a></li>
-                <li><a href="#" title="">Solicitações para mim</a></li>
+                <li><a href="{{ route('emprestimo.solicitacoes') }}" title="">Solicitações para mim</a></li>
                 <li><a href="#" title="">Concluir Empréstimo</a></li>
                 <li class="last"><a href="#" title="">Todas Solicitações</a></li>
             </ul>

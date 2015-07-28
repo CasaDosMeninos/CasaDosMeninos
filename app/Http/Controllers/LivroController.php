@@ -35,14 +35,10 @@ class LivroController extends Controller {
         $livro = Livro::find($id);
 
         // Verifica se já existe um pedido em andamento
-        $emprestimo = DB::table('emprestimos');
-        $emprestimo->join('status', 'status_id', '=', 'status.id')
-                ->where('solicitante_id', Auth::user()->id)
-                ->where('livro_id', $livro->id)
-                ->where('status.nome', 'Solicitado')
-                ->get();
-
-        \Debugbar::info($emprestimo->count());
+        $emprestimo = Emprestimo::whereHas('status', function($q) { $q->where('nome', 'Solicitado'); })
+            ->where('solicitante_id',  Auth::user()->id)
+            ->where('livro_id',  $livro->id)
+            ->count();
         return view('livro.visualizar', compact('livro', 'emprestimo'));
     }
 

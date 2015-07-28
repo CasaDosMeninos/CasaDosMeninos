@@ -25,6 +25,7 @@ class CreateEmprestimosTable extends Migration {
             $table->date('data');
             $table->text('obs')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 	}
 

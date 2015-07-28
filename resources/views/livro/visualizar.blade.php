@@ -14,20 +14,20 @@
             <div class="controlB">
                 <ul>
 
-                    @if($livro->status->nome == 'Disponível' && $emprestimo->count() == 0)
+                    @if($livro->status->nome == 'Disponível' && $emprestimo == 0)
                         <li>
                             <a id="opener" href="" title="">
                                 <img src="{{ asset('images/icons/control/32/issue.png') }}" alt="" />
                                 <span>Pedir Emprestado</span>
                             </a>
                         </li>
-                    @elseif($emprestimo->count() != 0)
-                            <li>
-                                <a href="#" title="">
-                                    <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
-                                    <span>Aguardando resposta</span>
-                                </a>
-                            </li>
+                    @elseif($emprestimo != 0)
+                        <li>
+                            <a href="#" title="">
+                                <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
+                                <span>Aguardando resposta</span>
+                            </a>
+                        </li>
                     @elseif($livro->status->nome == 'Emprestado')
                         <li>
                             <a href="#" title="">

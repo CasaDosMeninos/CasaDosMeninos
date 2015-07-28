@@ -21,13 +21,27 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="{{ action('EmprestimoController@destroy', ['emprestimo' => $emprestimo->id]) }}" title="">
-                            <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
-                            <span>Cancelar pedido</span>
-                        </a>
-                    </li>
-
+                    @if($modo == 'pedido')
+                        <li>
+                            <a href="{{ action('EmprestimoController@destroy', ['emprestimo' => $emprestimo->id]) }}" title="">
+                                <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
+                                <span>Cancelar pedido</span>
+                            </a>
+                        </li>
+                    @elseif($modo == 'solicitacao')
+                        <li>
+                            <a href="{{ action('EmprestimoController@update', ['emprestimo' => $emprestimo->id, 'acao' => 'aceitar']) }}" title="">
+                                <img src="{{ asset('images/icons/control/32/check.png') }}" alt="" />
+                                <span>Aceitar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ action('EmprestimoController@update', ['emprestimo' => $emprestimo->id, 'acao' => 'recusar']) }}" title="">
+                                <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
+                                <span>Recusar</span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
                 <div class="clear"></div>
             </div>
@@ -69,8 +83,13 @@
                         <dt class="pt20">Data da devolução</dt>
                         <dd>{{ $emprestimo->data->format('d/m/Y') }}</dd>
 
-                        <dt class="pt20">Dono</dt>
-                        <dd>{{ $emprestimo->dono->name }}</dd>
+                        @if($modo == 'pedido')
+                            <dt class="pt20">Dono</dt>
+                            <dd>{{ $emprestimo->dono->name }}</dd>
+                        @elseif($modo == 'solicitacao')
+                            <dt class="pt20">Solicitante</dt>
+                            <dd>{{ $emprestimo->solicitante->name }}</dd>
+                        @endif
 
                         <dt class="pt20">Observações</dt>
                         <dd>{{ $emprestimo->obs }}</dd>
