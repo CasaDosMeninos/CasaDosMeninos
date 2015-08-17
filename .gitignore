@@ -1,10 +1,19 @@
+# Laravel
 /vendor
 /node_modules
 .env
 
+# Biblioteca
 /public/livros/*
 /public/autorizacao/*
 
+# Composer
 composer.phar
 .idea
 _ide_helper.php
+
+# Capistrano
+Capfile
+/config/deploy/*
+/config/deploy.rb
+/config/myconfig.rb
