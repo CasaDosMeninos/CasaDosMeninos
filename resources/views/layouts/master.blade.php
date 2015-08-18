@@ -86,7 +86,7 @@
             </ul>
         </li>
         <li class="clock"><a href="{{ route('emprestimo.historico') }}" title=""><span>Histórico</span></a></li>
-        @if (Auth::user()->admin)
+        @if (Auth::user() && Auth::user()->admin)
         <li class="admin-user">
             <a href="#" title="" class="{{ setActive(['admin.temas', 'admin.validar', 'admin.livros', 'admin.pontos'], 'exp') }}"><span>Administrador</span></a>
             <ul class="sub">
