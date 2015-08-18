@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://cdm.app',
+	'url' => 'http://cdm.dev',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -145,10 +145,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
-		'Barryvdh\Debugbar\ServiceProvider',
-		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
-        'Jenssegers\Date\DateServiceProvider',
 
 	],
 
