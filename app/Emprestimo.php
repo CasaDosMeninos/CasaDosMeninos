@@ -1,11 +1,11 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Emprestimo extends Model {
 
-    use softDeletes;
+    use SoftDeletes;
 
 	protected $fillable = ['data', 'obs'];
     protected $dates = ['data', 'deleted_at'];
