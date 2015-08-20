@@ -17,3 +17,4 @@ Capfile
 /config/deploy/*
 /config/deploy.rb
 /config/myconfig.rb
+lib/
