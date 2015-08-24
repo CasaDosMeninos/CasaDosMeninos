@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class Emprestimo extends Model {
 
@@ -24,5 +25,21 @@ class Emprestimo extends Model {
 
     public function solicitante() {
         return $this->belongsTo('App\User', 'solicitante_id');
+    }
+
+    public static function notificacoes() {
+        $paraMim = Emprestimo::where('dono_id', Auth::user()->id)
+            ->whereHas('status', function($q) {
+                $q->where('nome', 'Solicitado');
+            })
+            ->count();
+
+        $concluir = Emprestimo::where('dono_id', Auth::user()->id)
+            ->whereHas('status', function($q) {
+                $q->where('nome', 'Emprestado');
+            })
+            ->count();
+
+        return array('paraMim' => $paraMim, 'concluir' => $concluir);
     }
 }

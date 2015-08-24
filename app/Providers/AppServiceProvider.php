@@ -1,5 +1,6 @@
 <?php namespace App\Providers;
 
+use App\Emprestimo;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider {
@@ -11,7 +12,14 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		//
+		view()->composer('layouts.master', function($view)
+		{
+			$view->with('notificacoes', array_sum(Emprestimo::notificacoes()))
+				->with('paraMim', Emprestimo::notificacoes()['paraMim'])
+				->with('concluir', Emprestimo::notificacoes()['concluir'])
+			;
+		});
+
 	}
 
 	/**

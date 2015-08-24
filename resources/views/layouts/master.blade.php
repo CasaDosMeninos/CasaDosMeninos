@@ -77,11 +77,28 @@
         <li class="sign-post">
             <a href="{{ route('ponto.index') }}" class="{{ setActive(['ponto.index']) }}" title=""><span>Pontos de Troca</span></a>
         </li>
-        <li class="tables"><a href="#" title="" class="exp"><span>Solicitações</span><strong>8</strong></a>
+        <li class="tables">
+            <a href="#" title="" class="exp">
+                <span>Solicitações</span>
+                @if ($notificacoes)
+                    <strong>{{ $notificacoes }}</strong>
+                @endif
+            </a>
             <ul class="sub">
                 <li><a href="{{ route('emprestimo.meus_pedidos') }}" title="">Meus pedidos</a></li>
-                <li><a href="{{ route('emprestimo.solicitacoes') }}" title="">Solicitações para mim</a></li>
-                <li><a href="{{ route('emprestimo.concluir') }}" title="">Concluir Empréstimo</a></li>
+                <li>
+                    <a href="{{ route('emprestimo.solicitacoes') }}" title="">Solicitações para mim
+                        @if ($paraMim)
+                            <strong>{{ $paraMim }}</strong>
+                        @endif
+                    </a>
+                </li>
+                <li><a href="{{ route('emprestimo.concluir') }}" title="">Concluir Empréstimo
+                        @if ($concluir)
+                            <strong>{{ $concluir }}</strong>
+                        @endif
+                    </a>
+                </li>
                 <li class="last"><a href="{{ route('emprestimo.todos') }}" title="">Todas Solicitações</a></li>
             </ul>
         </li>
@@ -121,13 +138,7 @@
                             <span>Perfil</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#" title="">
-                            <img src="{{ asset('images/icons/topnav/messages.png') }}" alt="" />
-                            <span>Notificações</span>
-                            <span class="numberTop">8</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="{{ route('auth.logout') }}" title="">
                             <img src="{{ asset('images/icons/topnav/logout.png') }}" alt="" />
@@ -161,7 +172,9 @@
                 </li>
                 <li class="sign-post"><a href="#" title=""><span>Pontos de Troca</span></a></li>
                 <li class="clock"><a href="#" title=""><span>Histórico</span></a></li>
-                <li class="tables"><a href="#" title="" class="exp"><span>Solicitações</span><strong>8</strong></a>
+                <li class="tables"><a href="#" title="" class="exp">
+                    <span>Solicitações</span>
+                    <strong>{{ $notificacoes }}</strong></a>
                     <ul>
                         <li><a href="#" title="">Meus pedidos</a></li>
                         <li><a href="#" title="">Solicitações para mim</a></li>

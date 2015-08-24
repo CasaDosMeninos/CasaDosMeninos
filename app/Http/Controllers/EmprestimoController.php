@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Auth;
 use Jenssegers\Date\Date;
 use Mail;
-use DB;
 
 use App\Livro;
 use App\Emprestimo;
