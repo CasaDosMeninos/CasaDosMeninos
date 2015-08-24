@@ -240,19 +240,22 @@ $(function() {
 
 	
 	//===== Dynamic data table =====//
-	
-	oTable = $('.dTable').dataTable({
+	$.extend($.fn.dataTable.defaults, {
 		"bJQueryUI": true,
 		"sPaginationType": "full_numbers",
 		"sDom": '<""l>t<"F"fp>',
-        "language": {
-            "search": "Buscar: ",
-            "lengthMenu": "Mostrar _MENU_ itens por p&aacute;gina",
-            "zeroRecords": "Nenhum registro",
-            "info": "Mostrando _PAGE_ p&aacute;ginas de _PAGES_",
-        }
-
+		"language": {
+			"url": "http://cdn.datatables.net/plug-ins/1.10.8/i18n/Portuguese-Brasil.json"
+		},
+		"columnDefs": [{
+			"targets": 0,
+			"render": function ( data, type, full, meta ) {
+				var livro = data.split(';');
+				return '<a href="'+ livro[0] +'">'+ livro[1] +'</a>';
+			}
+		}]
 	});
+	$('.dTable').dataTable();
 
 
 

@@ -57,7 +57,7 @@
     <div class="sidebarSep mt0"></div>
     
     <!-- Search widget -->
-    <form action="" class="sidebarSearch">
+    <form action="{{ route('livro.busca') }}" class="sidebarSearch">
         <input type="text" name="search" placeholder="procurar..." id="ac" />
         <input type="submit" value="" />
     </form>

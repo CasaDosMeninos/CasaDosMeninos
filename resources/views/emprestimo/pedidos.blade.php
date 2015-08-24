@@ -21,7 +21,7 @@
             <h6>Solicitações</h6>
         </div>
 
-        <table cellpadding="0" cellspacing="0" border="0" class="display dTables">
+        <table cellpadding="0" cellspacing="0" border="0" class="display dTable">
             <thead>
             <tr>
                 <th>Título</th>
@@ -42,15 +42,20 @@
             <tbody>
             @foreach ($emprestimos as $emprestimo)
                 <tr>
-                    <td>{{ $emprestimo->id }};{{ $emprestimo->livro->titulo }}</td>
-                    <td>{{ $emprestimo->created_at->format('d/m/Y') }}</td>
-                    <td>{{ $emprestimo->data->format('d/m/Y') }}</td>
-
                     @if($modo == 'solicitacao')
+                        <td>/emprestimo/solicitacao/ver/{{ $emprestimo->id }};{{ $emprestimo->livro->titulo }}</td>
+                        <td>{{ $emprestimo->created_at->format('d/m/Y') }}</td>
+                        <td>{{ $emprestimo->data->format('d/m/Y') }}</td>
                         <td>{{ $emprestimo->solicitante->name }}</td>
                     @elseif($modo == 'pedido')
+                        <td>/emprestimo/meu/ver/{{ $emprestimo->id }};{{ $emprestimo->livro->titulo }}</td>
+                        <td>{{ $emprestimo->created_at->format('d/m/Y') }}</td>
+                        <td>{{ $emprestimo->data->format('d/m/Y') }}</td>
                         <td>{{ $emprestimo->dono->name }}</td>
                     @elseif($modo == 'todos')
+                        <td>/emprestimo/solicitacao/ver/{{ $emprestimo->id }};{{ $emprestimo->livro->titulo }}</td>
+                        <td>{{ $emprestimo->created_at->format('d/m/Y') }}</td>
+                        <td>{{ $emprestimo->data->format('d/m/Y') }}</td>
                         <td>{{ $emprestimo->solicitante->name }}</td>
                         <td>{{ $emprestimo->dono->name }}</td>
                     @endif
@@ -69,30 +74,4 @@
             $.jGrowl("{{ old('cadastro') }}");
         </script>
     @endif
-
-    <script type="text/javascript">
-        oTable = $('.dTables').dataTable({
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
-            "sDom": '<""l>t<"F"fp>',
-            "columnDefs": [{
-                "targets": 0,
-                "render": function ( data, type, full, meta ) {
-                    var emprestimo = data.split(';');
-                    @if($modo == 'solicitacao' || $modo == 'todos')
-                        return '<a href="/emprestimo/solicitacao/ver/'+ emprestimo[0] +'">'+ emprestimo[1] +'</a>';
-                    @elseif($modo == 'pedido')
-                        return '<a href="/emprestimo/meu/ver/'+ emprestimo[0] +'">'+ emprestimo[1] +'</a>';
-                    @endif
-
-                }
-            }],
-            "language": {
-                "search": "Buscar: ",
-                "lengthMenu": "Mostrar _MENU_ itens por p&aacute;gina",
-                "zeroRecords": "Nenhum registro",
-                "info": "Mostrando _PAGE_ p&aacute;ginas de _PAGES_",
-            }
-        });
-    </script>
 @stop

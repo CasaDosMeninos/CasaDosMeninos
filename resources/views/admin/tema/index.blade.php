@@ -34,7 +34,7 @@
             <h6>Temas</h6>
         </div>
 
-        <table cellpadding="0" cellspacing="0" border="0" class="display dTables">
+        <table cellpadding="0" cellspacing="0" border="0" class="display dTable">
             <thead>
             <tr>
                 <th>Nome</th>
@@ -44,7 +44,7 @@
             <tbody>
             @foreach ($temas as $tema)
                 <tr>
-                    <td>{{ $tema->id }};{{ $tema->nome }}</td>
+                    <td>/admin/tema/ver/{{ $tema->id }};{{ $tema->nome }}</td>
                     <td>{{ Date::parse($tema->updated_at)->format('d/m/Y H:i') }}</td>
                 </tr>
             @endforeach
@@ -61,27 +61,5 @@
         </script>
     @endif
 
-    <script type="text/javascript">
-        oTable = $('.dTables').dataTable({
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
-            "sDom": '<""l>t<"F"fp>',
-            "columnDefs": [{
-                "targets": 0,
-                "render": function ( data, type, full, meta ) {
-                    var tema = data.split(';');
-                    return '<a href="/admin/tema/ver/'+ tema[0] +'">'+ tema[1] +'</a>';
-                }
-            }, {
-                "targets": 1,
-                "width": "15%"
-            }],
-            "language": {
-                "search": "Buscar: ",
-                "lengthMenu": "Mostrar _MENU_ itens por p&aacute;gina",
-                "zeroRecords": "Nenhum registro",
-                "info": "Mostrando _PAGE_ p&aacute;ginas de _PAGES_",
-            }
-        });
-    </script>
+
 @stop

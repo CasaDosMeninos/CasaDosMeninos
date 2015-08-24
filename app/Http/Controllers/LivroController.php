@@ -30,6 +30,15 @@ class LivroController extends Controller {
 		return view('livro.index', compact('livros'));
 	}
 
+	public function search(Request $request)
+	{
+		$search = $request->input('search');
+		$livros = Livro::where('titulo', 'LIKE', "%$search%")
+			->orWhere('autor', 'LIKE', "%$search%")
+			->get();
+		return view('livro.index', compact('livros'));
+	}
+
     public function show($id)
     {
         $livro = Livro::find($id);

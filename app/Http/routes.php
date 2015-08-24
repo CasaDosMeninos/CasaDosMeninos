@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
     // Livros
 	Route::get('livro/cadastrar',	    ['as' => 'livro.cadastrar',     'uses' => 'LivroController@create']);
 	Route::get('livro/consultar',	    ['as' => 'livro.consultar',     'uses' => 'LivroController@index']);
+    Route::get('livro/busca',           ['as' => 'livro.busca',         'uses' => 'LivroController@search']);
 	Route::post('livro/gravar', 	    ['as' => 'livro.gravar',        'uses' => 'LivroController@store']);
 	Route::post('livro/gravar-ponto', 	['as' => 'livro.gravarPonto',   'uses' => 'LivroController@storePonto']);
 	Route::get('livro/ponto', 		    ['as' => 'livro.ponto',         'uses' => 'LivroController@ponto']);

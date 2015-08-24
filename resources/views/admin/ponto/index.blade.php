@@ -34,7 +34,7 @@
             <h6>Pontos de troca</h6>
         </div>
 
-        <table cellpadding="0" cellspacing="0" border="0" class="display dTables">
+        <table cellpadding="0" cellspacing="0" border="0" class="display dTable">
             <thead>
             <tr>
                 <th>Nome</th>
@@ -47,7 +47,7 @@
             <tbody>
             @foreach ($pontos as $ponto)
                 <tr>
-                    <td>{{ $ponto->id }};{{ $ponto->nome }}</td>
+                    <td>/admin/ponto/ver/{{ $ponto->id }};{{ $ponto->nome }}</td>
                     <td>{{ count($ponto->livros) }}</td>
                     <td>{{ $ponto->endereco }}</td>
                     <td>{{ $ponto->bairro }}</td>
@@ -65,25 +65,4 @@
             $.jGrowl("{{ old('cadastro') }}");
         </script>
     @endif
-
-    <script type="text/javascript">
-        oTable = $('.dTables').dataTable({
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
-            "sDom": '<""l>t<"F"fp>',
-            "columnDefs": [{
-                "targets": 0,
-                "render": function ( data, type, full, meta ) {
-                    var ponto = data.split(';');
-                    return '<a href="/admin/ponto/ver/'+ ponto[0] +'">'+ ponto[1] +'</a>';
-                }
-            }],
-            "language": {
-                "search": "Buscar: ",
-                "lengthMenu": "Mostrar _MENU_ itens por p&aacute;gina",
-                "zeroRecords": "Nenhum registro",
-                "info": "Mostrando _PAGE_ p&aacute;ginas de _PAGES_",
-            }
-        });
-    </script>
 @stop
