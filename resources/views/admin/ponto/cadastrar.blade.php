@@ -34,7 +34,15 @@
                         </div>
 
                         <div class="formRow">
-                            <label>Endereço*:</label>
+                            <label>CEP*:</label>
+                            <div class="formRight">
+                                <input type="text" value="" name="cep" id="cep" class="validate[required]" />
+                                <span class="formNote">Digite apenas números</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="formRow">
+                            <label for="endereco">Endereço*:</label>
                             <div class="formRight">
                                 <input type="text" value="" name="endereco" id="endereco" class="validate[required]" />
                             </div>
@@ -44,14 +52,6 @@
                             <label>Bairro*:</label>
                             <div class="formRight">
                                 <input type="text" value="" name="bairro" id="bairro" class="validate[required]" />
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="formRow">
-                            <label>CEP*:</label>
-                            <div class="formRight">
-                                <input type="text" value="" name="cep" id="cep" class="validate[required]" />
-                                <span class="formNote">Digite apenas números</span>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -101,6 +101,21 @@
             $.jGrowl("{{ old('cadastro') }}");
         </script>
     @endif
+
+    <script type="text/javascript">
+        $('#cep').blur(function() {
+            $.ajax({
+                url: 'http://correiosapi.apphb.com/cep/' + $(this).val(),
+                dataType: 'jsonp',
+                crossDomain: true,
+                contentType: "application/json"
+        }).then(function(data) {
+//                $('#endereco, #bairro').attr('disabled', false);
+                $('#endereco').val(data.tipoDeLogradouro + ' ' + data.logradouro);
+                $('#bairro').val(data.bairro);
+            })
+        });
+    </script>
 
     <script type="text/javascript">
         /* Google MAPS

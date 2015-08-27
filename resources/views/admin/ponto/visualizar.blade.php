@@ -68,6 +68,14 @@
                         </div>
 
                         <div class="formRow">
+                            <label>CEP*:</label>
+                            <div class="formRight">
+                                <input type="text" value="{{ $ponto->cep }}" name="cep" id="cep" class="validate[required]" />
+                                <span class="formNote">Digite apenas números</span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="formRow">
                             <label>Endereço*:</label>
                             <div class="formRight">
                                 <input type="text" value="{{ $ponto->endereco }}" name="endereco" id="endereco" class="validate[required]" />
@@ -81,15 +89,6 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="formRow">
-                            <label>CEP*:</label>
-                            <div class="formRight">
-                                <input type="text" value="{{ $ponto->cep }}" name="cep" id="cep" class="validate[required]" />
-                                <span class="formNote">Digite apenas números</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-
                         <div class="formRow">
                             <label>Responsável:</label>
                             <div class="formRight">
@@ -135,6 +134,21 @@
             $.jGrowl("{{ old('cadastro') }}");
         </script>
     @endif
+
+    <script type="text/javascript">
+        $('#cep').blur(function() {
+            $.ajax({
+                url: 'http://correiosapi.apphb.com/cep/' + $(this).val(),
+                dataType: 'jsonp',
+                crossDomain: true,
+                contentType: "application/json"
+            }).then(function(data) {
+//                $('#endereco, #bairro').attr('disabled', false);
+                $('#endereco').val(data.tipoDeLogradouro + ' ' + data.logradouro);
+                $('#bairro').val(data.bairro);
+            })
+        });
+    </script>
 
     <script type="text/javascript">
         $('a#deletar').click(function(){

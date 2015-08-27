@@ -2,12 +2,9 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-use App\Livro;
-use App\Ponto;
 use Illuminate\Http\Request;
 
-use App\Tema;
+use App\Ponto;
 
 class PontoController extends Controller {
 
@@ -50,7 +47,7 @@ class PontoController extends Controller {
 
         if ($request->file('autorizacao') != null && $request->file('autorizacao')->isValid()) {
 
-            if (!File::exists('autorizacao'))
+            if (!\File::exists('autorizacao'))
                 \File::makeDirectory('autorizacao');
 
             $nome = $ponto->id . '.' . $request->file('autorizacao')->getClientOriginalExtension();
@@ -90,7 +87,7 @@ class PontoController extends Controller {
 
         if ($request->file('autorizacao') != null && $request->file('autorizacao')->isValid()) {
 
-            if (!File::exists('autorizacao'))
+            if (!\File::exists('autorizacao'))
                 \File::makeDirectory('autorizacao');
 
             $nome = $ponto->id . '.' . $request->file('autorizacao')->getClientOriginalExtension();

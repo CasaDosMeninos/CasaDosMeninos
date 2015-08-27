@@ -68,7 +68,7 @@
 
                         <dt class="pt20">Autorização</dt>
                         @if($ponto->autorizacao)
-                            <dd><a href="{{ asset('autorizacao/' . $ponto->autorizacao) }}">Download</a></dd>
+                            <dd><a href="{{ asset('autorizacao/' . $ponto->autorizacao) }}" target="_blank">Download</a></dd>
                         @else
                             <dd>Não possui</dd>
                         @endif

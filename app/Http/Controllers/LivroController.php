@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 
 use Auth;
 use Session;
-use File;
-use DB;
 
 use App\User;
 use App\Tema;
@@ -87,7 +85,7 @@ class LivroController extends Controller {
 		if ($request->input('tipo-ponto') == 'fora') {
 			if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
 
-                if (!File::exists('livros'))
+                if (!\File::exists('livros'))
                     \File::makeDirectory('livros');
 
 				$extensao = $request->file('imagem')->getClientOriginalExtension();
@@ -126,8 +124,6 @@ class LivroController extends Controller {
 
 	public function storePonto(Request $request)
 	{
-        $msg = $route = '';
-
         // Se já existir ID então estou editando o ponto de troca
         if (Session::get('id') == null) {
             $livro = new Livro;

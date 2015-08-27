@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Livro;
 use App\Tema;
-use Session;
 
 class LivroController extends Controller {
 
@@ -58,13 +57,14 @@ class LivroController extends Controller {
 	{
         $livro = Livro::find($request->input('id'));
 
+        /** @noinspection PhpParamsInspection */
         $livro->tema()->associate(Tema::find($request->input('tema_id')));
         $livro->fill($request->input())->save();
 
         // Se o livro tiver imagem
         if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
 
-            if (!File::exists('livros'))
+            if (!\File::exists('livros'))
                 \File::makeDirectory('livros');
 
             $nome = $livro->id . '.' . $request->file('imagem')->getClientOriginalExtension();

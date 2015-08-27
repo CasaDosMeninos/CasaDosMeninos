@@ -3,6 +3,8 @@
 use App\Emprestimo;
 use Illuminate\Support\ServiceProvider;
 
+use Auth;
+
 class AppServiceProvider extends ServiceProvider {
 
 	/**
@@ -12,14 +14,14 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		view()->composer('layouts.master', function($view)
-		{
-			$view->with('notificacoes', array_sum(Emprestimo::notificacoes()))
-				->with('paraMim', Emprestimo::notificacoes()['paraMim'])
-				->with('concluir', Emprestimo::notificacoes()['concluir'])
-			;
+		view()->composer('layouts.master', function ($view) {
+			$notificacoes = Auth::user() ? array_sum(Emprestimo::notificacoes()) : 0;
+			$paraMim = Auth::user() ? Emprestimo::notificacoes()['paraMim'] : 0;
+			$concluir = Auth::user() ? Emprestimo::notificacoes()['concluir'] : 0;
+			$view->with('notificacoes', $notificacoes)
+				->with('paraMim', $paraMim)
+				->with('concluir', $concluir);
 		});
-
 	}
 
 	/**
