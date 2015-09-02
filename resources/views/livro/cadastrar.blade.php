@@ -127,13 +127,15 @@
 						fl: 'author,ed,publisher,title,year'
 					};
 					$.getJSON(wcAPI, req, function(data) {
-						var book = data.list[0];
-						$('#titulo').val(book.title);
-						$('#editora').val(book.publisher);
-						$('#autor').val(book.author);
-						$('#ano').val(book.year);
-						$('#edicao').val(book.ed);
-						$('#validado').val(1);
+						if (data.stat == 'ok') {
+							var book = data.list[0];
+							$('#titulo').val(book.title);
+							$('#editora').val(book.publisher);
+							$('#autor').val(book.author);
+							$('#ano').val(book.year);
+							$('#edicao').val(book.ed);
+							$('#validado').val(1);
+						}
 					});
 				};
 			});
