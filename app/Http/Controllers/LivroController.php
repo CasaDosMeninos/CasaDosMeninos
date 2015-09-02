@@ -31,8 +31,10 @@ class LivroController extends Controller {
 	public function search(Request $request)
 	{
 		$search = $request->input('search');
-		$livros = Livro::where('titulo', 'LIKE', "%$search%")
+		$livros = Livro::where('validado', TRUE)
+			->where('titulo', 'LIKE', "%$search%")
 			->orWhere('autor', 'LIKE', "%$search%")
+			->where('validado', TRUE)
 			->get();
 		return view('livro.index', compact('livros'));
 	}
