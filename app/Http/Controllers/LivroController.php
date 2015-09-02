@@ -88,8 +88,8 @@ class LivroController extends Controller {
                 if (!\File::exists('livros'))
                     \File::makeDirectory('livros');
 
-				$extensao = $request->file('imagem')->getClientOriginalExtension();
-				$nome = sprintf('user_%d.%s', Auth::user()->id, $extensao);
+				//$extensao = $request->file('imagem')->getClientOriginalExtension();
+				$nome = sprintf('user_%d.jpg', Auth::user()->id);
 				$request->file('imagem')->move('livros', $nome);
 
 				// Salva na sessão para renomear futuramente
@@ -106,11 +106,12 @@ class LivroController extends Controller {
 			$livro->ponto()->associate(Ponto::find(Auth::user()->ponto_id));
             $livro->status()->associate(Status::where('nome', 'Disponivel')->first());
 
+			$livro->validado = $request->input('validado');
 			$livro->fill($request->input())->save();
 
 			// Se o livro tiver imagem
 			if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
-				$nome = $livro->id . '.' . $request->file('imagem')->getClientOriginalExtension();
+				$nome = $livro->id . '.jpg';
 				$request->file('imagem')->move('livros', $nome);
 				$livro->imagem = TRUE;
 				$livro->update();
@@ -132,11 +133,12 @@ class LivroController extends Controller {
             $livro->dono()->associate(User::find(Auth::user()->id));
             $livro->ponto()->associate(Ponto::find($request->get('ponto')));
 
+			$livro->validado = Session::get('validado');
             $livro->fill(Session::all())->save();
 
             if (Session::has('imagem')) {
                 $imagem = Session::get('imagem');
-                rename("livros/{$imagem['nome']}", "livros/{$livro->id}.{$imagem['extensao']}");
+                rename("livros/{$imagem['nome']}", "livros/{$livro->id}.jpg");
                 $livro->imagem = TRUE;
                 $livro->update();
             }
