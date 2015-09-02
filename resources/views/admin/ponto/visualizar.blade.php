@@ -83,6 +83,13 @@
                             <div class="clear"></div>
                         </div>
                         <div class="formRow">
+                            <label for="numero">Número*:</label>
+                            <div class="formRight">
+                                <input type="text" value="" name="numero" id="numero" class="validate[required]" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="formRow">
                             <label>Bairro*:</label>
                             <div class="formRight">
                                 <input type="text" value="{{ $ponto->bairro }}" name="bairro" id="bairro" class="validate[required]" />

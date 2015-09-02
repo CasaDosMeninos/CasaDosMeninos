@@ -26,7 +26,7 @@
                     <input type="hidden" value="" id="longitude" name="longitude" />
                     <fieldset>
                         <div class="formRow">
-                            <label>Nome*:</label>
+                            <label for="nome">Nome*:</label>
                             <div class="formRight">
                                 <input type="text" value="" name="nome" id="nome" class="validate[required]" />
                             </div>
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="formRow">
-                            <label>CEP*:</label>
+                            <label for="cep">CEP*:</label>
                             <div class="formRight">
                                 <input type="text" value="" name="cep" id="cep" class="validate[required]" />
                                 <span class="formNote">Digite apenas números</span>
@@ -49,7 +49,14 @@
                             <div class="clear"></div>
                         </div>
                         <div class="formRow">
-                            <label>Bairro*:</label>
+                            <label for="numero">Número*:</label>
+                            <div class="formRight">
+                                <input type="text" value="" name="numero" id="numero" class="validate[required]" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="formRow">
+                            <label for="bairro">Bairro*:</label>
                             <div class="formRight">
                                 <input type="text" value="" name="bairro" id="bairro" class="validate[required]" />
                             </div>
@@ -57,16 +64,16 @@
                         </div>
 
                         <div class="formRow">
-                            <label>Responsável:</label>
+                            <label for="responsavel">Responsável:</label>
                             <div class="formRight">
-                                <input type="text" value="" name="responsavel" />
+                                <input type="text" value="" name="responsavel" id="responsavel" />
                             </div>
                             <div class="clear"></div>
                         </div>
                         <div class="formRow">
-                            <label>Contato:</label>
+                            <label for="contato">Contato:</label>
                             <div class="formRight">
-                                <input type="text" value="" name="contato" />
+                                <input type="text" value="" name="contato" id="contato" />
                             </div>
                             <div class="clear"></div>
                         </div>

@@ -43,7 +43,8 @@ class PontoController extends Controller {
 	public function store(Request $request)
 	{
         $ponto = new Ponto();
-        $ponto->fill($request->input())->save();
+        $ponto->endereco = $request->input('endereco') . ', ' . $request->input('numero');
+        $ponto->fill($request->except('numero', 'endereco'))->save();
 
         if ($request->file('autorizacao') != null && $request->file('autorizacao')->isValid()) {
 
@@ -83,7 +84,8 @@ class PontoController extends Controller {
 	public function update(Request $request)
 	{
         $ponto = Ponto::find($request->id);
-        $ponto->fill($request->input())->save();
+        $ponto->endereco = $request->input('endereco') . ', ' . $request->input('numero');
+        $ponto->fill($request->except('numero', 'endereco'))->save();
 
         if ($request->file('autorizacao') != null && $request->file('autorizacao')->isValid()) {
 
