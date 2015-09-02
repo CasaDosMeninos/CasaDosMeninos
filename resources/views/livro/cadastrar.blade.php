@@ -21,6 +21,7 @@
 
 			<form id="cadastrarLivro" method="post" class="form validate" action="{{ action('LivroController@store') }}" enctype="multipart/form-data">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input type="hidden" name="validado" id="validado" value="0">
 				<fieldset class="step" id="cadastrarLivro1">
 					<h1>Etapa 1/2</h1>
 					<div class="formRow">
@@ -132,6 +133,7 @@
 						$('#autor').val(book.author);
 						$('#ano').val(book.year);
 						$('#edicao').val(book.ed);
+						$('#validado').val(1);
 					});
 				};
 			});
