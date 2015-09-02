@@ -24,9 +24,9 @@
 				<fieldset class="step" id="cadastrarLivro1">
 					<h1>Etapa 1/2</h1>
 					<div class="formRow">
-						<label>ISBN:</label>
+						<label for="isbn">ISBN:</label>
 						<div class="formRight">
-							<input type="text" name="isbn" />
+							<input type="text" name="isbn" id="isbn" />
 							<a href="#" class="wizard-next"><span class="formNote">Este livro não possui ISBN? Clique aqui</span></a>
 						</div>
 						<div class="clear"></div>
@@ -35,32 +35,32 @@
 				<fieldset id="cadastrarLivro2" class="step">
 					<h1>Etapa 2/2</h1>
 					<div class="formRow">
-						<label>Título:*</label>
+						<label for="titulo">Título:*</label>
 						<div class="formRight"><input type="text" name="titulo" id="titulo" class="validate[required]" /></div>
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">
-						<label>Edição:</label>
+						<label for="edicao">Edição:</label>
 						<div class="formRight"><input type="text" name="edicao" id="edicao" /></div>
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">
-						<label>Ano:</label>
+						<label for="ano">Ano:</label>
 						<div class="formRight"><input type="text" name="ano" id="ano" /></div>
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">
-						<label>Páginas:</label>
+						<label for="paginas">Páginas:</label>
 						<div class="formRight"><input type="text" name="paginas" id="paginas" /></div>
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">
-						<label>Editora:</label>
+						<label for="editora">Editora:</label>
 						<div class="formRight"><input type="text" name="editora" id="editora" /></div>
 						<div class="clear"></div>
 					</div>
 					<div class="formRow">
-						<label>Autor:*</label>
+						<label for="autor">Autor:*</label>
 						<div class="formRight"><input type="text" name="autor" id="autor" class="validate[required]" /></div>
 						<div class="clear"></div>
 					</div>
@@ -116,13 +116,23 @@
 				textNext: 'Próximo',
 				textBack: 'Voltar',
 				textSubmit: 'Cadastrar'
-			});
-			$('.wizard-next').click(function(event) {
-				$('#cadastrarLivro').formwizard('next');
-			});
-			$("#cadastrarLivro").bind("step_shown", function(event, data){
+			})
+			.bind("step_shown", function(event, data){
 				if (data.currentStep == 'cadastrarLivro2') {
-					// @TODO: Populate second step form
+					var wcAPI = ' http://xisbn.worldcat.org/webservices/xid/isbn/' + $('#isbn').val();
+					var req = {
+						method: 'getMetadata',
+						format: 'json',
+						fl: 'author,ed,publisher,title,year'
+					};
+					$.getJSON(wcAPI, req, function(data) {
+						var book = data.list[0];
+						$('#titulo').val(book.title);
+						$('#editora').val(book.publisher);
+						$('#autor').val(book.author);
+						$('#ano').val(book.year);
+						$('#edicao').val(book.ed);
+					});
 				};
 			});
 	});

@@ -4,6 +4,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 
+/**
+ * App\Emprestimo
+ *
+ * @property-read \App\Status $status
+ * @property-read \App\Livro $livro
+ * @property-read \App\User $dono
+ * @property-read \App\User $solicitante
+ */
 class Emprestimo extends Model {
 
     use SoftDeletes;
