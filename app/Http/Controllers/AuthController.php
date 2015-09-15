@@ -26,7 +26,6 @@ class AuthController extends Controller {
 
     public function postLogin(Request $request)
     {
-//        $user = User::where('email', $request->input('email'))->first();
         $s = Adldap::search()
             ->where('mail', '=', $request->input('email'))
             ->where('userPassword', '=', $request->input('senha'))
@@ -39,9 +38,6 @@ class AuthController extends Controller {
             Auth::login($user);
             return redirect()->intended('/');
         }
-
-//        if(Auth::attempt(['username' => $request->input('email'), 'password' => $request->input('senha')]))
-//            return redirect()->intended('/');
 
         return view('login')
             ->withInput($request->only('email'))
@@ -61,6 +57,7 @@ class AuthController extends Controller {
             'bairro' => '',
             'cep' => $entry->postalcode[0]
         ]);
+        $ponto->privado(true)->save();
 
         $user = new User();
         $user->name = $entry->sn[0];

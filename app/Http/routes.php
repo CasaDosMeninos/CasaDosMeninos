@@ -18,7 +18,7 @@ Route::post('auth/login',	['as' => 'auth.postLogin',	'uses' => 'AuthController@p
 Route::group(['middleware' => 'auth'], function() {
     // Perfil
     Route::get('/perfil',               ['as' => 'perfil',          'uses' => 'HomeController@perfil']);
-    Route::get('/perfil/{id}/livros',   ['as' => 'perfil',          'uses' => 'HomeController@perfil']);
+    Route::get('/perfil/{id}/livros',   ['as' => 'perfil.livros',   'uses' => 'HomeController@livros']);
 
     // Ponto de troca
     Route::get('pontos',                ['as' => 'ponto.index',     'uses' => 'PontoController@index']);
