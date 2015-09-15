@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('livro/ponto', 		    ['as' => 'livro.ponto',         'uses' => 'LivroController@ponto']);
     Route::get('livro/ver/{id}',	    ['as' => 'livro.ver',           'uses' => 'LivroController@show']);
 
-    // Empréstimos
+    // EmprÃ©stimos
     Route::get('emprestimo/meu',                    ['as' => 'emprestimo.meus_pedidos', 'uses' => 'EmprestimoController@pedidosMeus']);
     Route::get('emprestimo/solicitacoes',           ['as' => 'emprestimo.solicitacoes', 'uses' => 'EmprestimoController@pedidosParaMim']);
     Route::get('emprestimo/meu/ver/{id}',           ['as' => 'emprestimo.meu_pedido',   'uses' => 'EmprestimoController@meuPedido']);
@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth', 'App\Http\Middleware\AdminMiddleware'], '
     Route::get('livro/validar/{id}', 'LivroController@validar');
     Route::get('livro/ver/{id}',     'LivroController@edit');
     Route::get('livro/apagar/{id}',  'LivroController@destroy');
+    Route::get('livro/ponto',        'LivroController@updatePonto');
     Route::post('livro/atualizar',   'LivroController@update');
 
     // Pontos de troca

@@ -124,7 +124,7 @@
                 <div class="formRow">
                     <label>Ponto de troca:</label>
                     <div class="formRight">
-                        <a href="{{ route('livro.ponto') }}"><strong>{{ $livro->ponto->nome }}</strong></a>
+                        <a href="{{ url('admin/livro/ponto') }}"><strong>{{ $livro->ponto->nome }}</strong></a>
                     </div>
                     <div class="clear"></div>
                 </div>

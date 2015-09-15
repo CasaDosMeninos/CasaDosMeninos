@@ -127,39 +127,27 @@ class LivroController extends Controller {
 
 	public function storePonto(Request $request)
 	{
-        // Se já existir ID então estou editando o ponto de troca
-        if (Session::get('id') == null) {
-            $livro = new Livro;
 
-            $livro->tema()->associate(Tema::find(Session::get('tema_id')));
-            $livro->dono()->associate(User::find(Auth::user()->id));
-            $livro->ponto()->associate(Ponto::find($request->get('ponto')));
+		$livro = new Livro;
 
-			$livro->validado = Session::get('validado');
-            $livro->fill(Session::all())->save();
+		$livro->tema()->associate(Tema::find(Session::get('tema_id')));
+		$livro->dono()->associate(User::find(Auth::user()->id));
+		$livro->ponto()->associate(Ponto::find($request->get('ponto')));
+		$livro->status()->associate(Status::where('nome', 'Disponivel')->first());
 
-            if (Session::has('imagem')) {
-                $imagem = Session::get('imagem');
-                rename("livros/{$imagem['nome']}", "livros/{$livro->id}.jpg");
-                $livro->imagem = TRUE;
-                $livro->update();
-            }
+		$livro->validado = Session::get('validado');
+		$livro->fill(Session::all())->save();
 
-            $msg = 'Cadastro de livro realizado com sucesso';
-            $route = 'livro.consultar';
-        } else {
-            $livro = Livro::find(Session::pull('id'));
-            $livro->ponto()->associate(Ponto::find($request->get('ponto')));
-            $livro->save();
-
-            $msg = 'Ponto de troca alterado com sucesso';
-            $route = 'admin.livros';
-        }
-
+		if (Session::has('imagem')) {
+			$imagem = Session::get('imagem');
+			rename("livros/{$imagem['nome']}", "livros/{$livro->id}.jpg");
+			$livro->imagem = TRUE;
+			$livro->update();
+		}
 
 		return redirect()
-				->route($route)
-				->withInput(['cadastro' => $msg]);
+				->route('livro.consultar')
+				->withInput(['cadastro' => 'Cadastro de livro realizado com sucesso']);
 	}
 
 

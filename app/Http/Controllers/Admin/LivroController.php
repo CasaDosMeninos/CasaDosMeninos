@@ -10,23 +10,12 @@ use App\Tema;
 
 class LivroController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
 		$livros = Livro::all();
 		return view('admin.livro.index', compact('livros'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function edit($id, Request $request)
 	{
         $livro = Livro::find($id);
@@ -47,12 +36,7 @@ class LivroController extends Controller {
         return view('admin.livro.visualizar', compact('livro', 'temas'));
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function update(Request $request)
 	{
         $livro = Livro::find($request->input('id'));
@@ -78,12 +62,17 @@ class LivroController extends Controller {
             ->withInput(['cadastro' => 'Livro editado com sucesso']);
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    public function updatePonto(Request $request)
+    {
+        $livro = Livro::find(Session::pull('id'));
+        $livro->ponto()->associate(Ponto::find($request->get('ponto')));
+        $livro->save();
+
+        return redirect()
+            ->route('admin.livros')
+            ->withInput(['cadastro' => 'Ponto de troca alterado com sucesso']);
+    }
+
 	public function destroy($id)
 	{
         $livro = Livro::find($id);
