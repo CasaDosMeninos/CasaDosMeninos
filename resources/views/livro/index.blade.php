@@ -17,7 +17,7 @@
     	<h6>Livros disponíveis</h6>
     </div>                          
     
-    <table cellpadding="0" cellspacing="0" border="0" class="display dTable">
+    <table cellpadding="0" cellspacing="0" border="0" class="display dTable taskWidget">
         <thead>
             <tr>
 	            <th>Título</th>
@@ -29,9 +29,9 @@
         <tbody>
         	@foreach ($livros as $livro)
             <tr>
-	            <td>/livro/ver/{{ $livro->id }};{{ $livro->titulo }}</td>
+	            <td class="{{ ($livro->status->nome == 'Disponível')?'taskPr':'taskD' }}">/livro/ver/{{ $livro->id }};{{ $livro->titulo }}</td>
 	            <td>{{ $livro->autor }}</td>
-	            <td>{{ $livro->status->nome }}</td>
+	            <td><span class="f11 {{($livro->status->nome == 'Disponível')?'green':'red'}}">{{ $livro->status->nome }}</span></td>
 	            <td>{{ $livro->dono->name }}</td>
             </tr>
             @endforeach
