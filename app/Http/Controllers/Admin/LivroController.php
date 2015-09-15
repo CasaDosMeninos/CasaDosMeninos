@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use Session;
 use App\Livro;
 use App\Tema;
+use App\Ponto;
 
 class LivroController extends Controller {
 
@@ -61,6 +63,13 @@ class LivroController extends Controller {
             ->route('admin.livros')
             ->withInput(['cadastro' => 'Livro editado com sucesso']);
 	}
+
+    public function editPonto()
+    {
+        $pontos = Ponto::where('privado', FALSE)->get();
+        $act = 'Admin\LivroController@updatePonto';
+        return view('livro.ponto', compact('pontos', 'act'));
+    }
 
     public function updatePonto(Request $request)
     {

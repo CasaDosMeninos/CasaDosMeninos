@@ -18,8 +18,8 @@
 			<div class="title"><img src="{{ asset('images/icons/dark/signPost.png') }}" alt="" class="titleIcon" />
 				<h6>Atribuir ponto de troca</h6>
 			</div>
-			
-			<form id="formPonto" class="form" action="{{ action('LivroController@storePonto') }}" method="POST">
+
+			<form id="formPonto" class="form" action="{{ action($act) }}" method="POST">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<table cellpadding="0" cellspacing="0" width="100%" class="sTable">
 	                <thead>

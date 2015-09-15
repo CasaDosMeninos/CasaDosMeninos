@@ -109,36 +109,40 @@
 	/* Form Wizard
 	================================================== */
 	$(function() {
-			$("#cadastrarLivro").formwizard({
-				formPluginEnabled: false, 
-				validationEnabled: false,
-				focusFirstInput : true,
-				disableUIStyles : true,
-				textNext: 'Próximo',
-				textBack: 'Voltar',
-				textSubmit: 'Cadastrar'
-			})
-			.bind("step_shown", function(event, data){
-				if (data.currentStep == 'cadastrarLivro2') {
-					var wcAPI = ' http://xisbn.worldcat.org/webservices/xid/isbn/' + $('#isbn').val();
-					var req = {
-						method: 'getMetadata',
-						format: 'json',
-						fl: 'author,ed,publisher,title,year'
-					};
-					$.getJSON(wcAPI, req, function(data) {
-						if (data.stat == 'ok') {
-							var book = data.list[0];
-							$('#titulo').val(book.title);
-							$('#editora').val(book.publisher);
-							$('#autor').val(book.author);
-							$('#ano').val(book.year);
-							$('#edicao').val(book.ed);
-							$('#validado').val(1);
-						}
-					});
+		$("#cadastrarLivro").formwizard({
+			formPluginEnabled: false,
+			validationEnabled: false,
+			focusFirstInput : true,
+			disableUIStyles : true,
+			textNext: 'Próximo',
+			textBack: 'Voltar',
+			textSubmit: 'Cadastrar'
+		})
+		.bind("step_shown", function(event, data){
+			if (data.currentStep == 'cadastrarLivro2') {
+				var wcAPI = ' http://xisbn.worldcat.org/webservices/xid/isbn/' + $('#isbn').val();
+				var req = {
+					method: 'getMetadata',
+					format: 'json',
+					fl: 'author,ed,publisher,title,year'
 				};
-			});
+				$.getJSON(wcAPI, req, function(data) {
+					if (data.stat == 'ok') {
+						var book = data.list[0];
+						$('#titulo').val(book.title);
+						$('#editora').val(book.publisher);
+						$('#autor').val(book.author);
+						$('#ano').val(book.year);
+						$('#edicao').val(book.ed);
+						$('#validado').val(1);
+					}
+				});
+			};
+		});
+
+		$('.wizard-next').click(function() {
+            $("#cadastrarLivro").formwizard('next');
+        });
 	});
 </script>
 @stop

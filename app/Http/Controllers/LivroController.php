@@ -69,9 +69,9 @@ class LivroController extends Controller {
 	 */
 	public function ponto(Request $request)
 	{
-		$request->flash();
 		$pontos = Ponto::where('privado', FALSE)->get();
-		return view('livro.ponto', compact('pontos'));
+		$act = 'LivroController@storePonto';
+		return view('livro.ponto', compact('pontos', 'act'));
 	}
 
 	/**
@@ -81,8 +81,6 @@ class LivroController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-
-
 		// Se o tipo do ponto não for a casa do dono, ainda há mais um passo no formulário
 		if ($request->input('tipo-ponto') == 'fora') {
 			if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {

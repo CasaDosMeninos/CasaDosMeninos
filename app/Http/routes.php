@@ -63,7 +63,8 @@ Route::group(['middleware' => ['auth', 'App\Http\Middleware\AdminMiddleware'], '
     Route::get('livro/validar/{id}', 'LivroController@validar');
     Route::get('livro/ver/{id}',     'LivroController@edit');
     Route::get('livro/apagar/{id}',  'LivroController@destroy');
-    Route::get('livro/ponto',        'LivroController@updatePonto');
+    Route::get('livro/ponto',        'LivroController@editPonto');
+    Route::post('livro/ponto',       'LivroController@updatePonto');
     Route::post('livro/atualizar',   'LivroController@update');
 
     // Pontos de troca
