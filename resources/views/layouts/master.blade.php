@@ -133,7 +133,7 @@
             <div class="userNav">
                 <ul>
                     <li>
-                        <a href="#" title="">
+                        <a href="{{ route('perfil') }}" title="">
                             <img src="{{ asset('images/icons/topnav/profile.png') }}" alt="" />
                             <span>Perfil</span>
                         </a>

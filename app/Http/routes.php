@@ -16,6 +16,10 @@ Route::get('auth/logout',	['as' => 'auth.logout',		'uses' => 'AuthController@log
 Route::post('auth/login',	['as' => 'auth.postLogin',	'uses' => 'AuthController@postLogin']);	
 
 Route::group(['middleware' => 'auth'], function() {
+    // Perfil
+    Route::get('/perfil',               ['as' => 'perfil',          'uses' => 'HomeController@perfil']);
+    Route::get('/perfil/{id}/livros',   ['as' => 'perfil',          'uses' => 'HomeController@perfil']);
+
     // Ponto de troca
     Route::get('pontos',                ['as' => 'ponto.index',     'uses' => 'PontoController@index']);
     Route::get('ponto/ver/{id}',        ['as' => 'ponto.ver',       'uses' => 'PontoController@show']);
