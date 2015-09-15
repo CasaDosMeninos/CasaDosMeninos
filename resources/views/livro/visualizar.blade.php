@@ -14,7 +14,7 @@
             <div class="controlB">
                 <ul>
 
-                    @if($livro->status->nome == 'Disponível' && $emprestimo == 0)
+                    @if($livro->status->nome == 'Disponível' && $emprestimo == 0 && $livro->dono->id != Auth::user()->id)
                         <li>
                             <a id="opener" href="" title="">
                                 <img src="{{ asset('images/icons/control/32/issue.png') }}" alt="" />
@@ -33,6 +33,13 @@
                             <a href="#" title="">
                                 <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
                                 <span>Indisponível</span>
+                            </a>
+                        </li>
+                    @elseif($livro->dono->id == Auth::user()->id)
+                        <li>
+                            <a href="#" title="">
+                                <img src="{{ asset('images/icons/control/32/busy.png') }}" alt="" />
+                                <span>Este livro é seu</span>
                             </a>
                         </li>
                     @endif
