@@ -1,11 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-	Cadastrar livros
+	Atribuir ponto de troca
 @stop
 
 @section('subtitle')
-	Entre com o ISBN do livro que você quer cadastrar ou cadastre-o manualmente pelo link "Este livro não possui ISBN"
+	Escolhe um ponto de troca que deseja disponibilizar este livro para quando alguém te pedir emprestado
 @stop
 
 @section('sub-nav')

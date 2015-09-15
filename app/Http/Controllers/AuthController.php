@@ -1,12 +1,16 @@
 <?php namespace App\Http\Controllers;
 
 use Auth;
-use App\User;
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
 
+use Adldap;
+use App\User;
+use App\Ponto;
+
 class AuthController extends Controller {
 
+    protected $username = 'mail';
     /**
      * Handle an authentication attempt.
      *
@@ -14,16 +18,30 @@ class AuthController extends Controller {
      */
     public function login()
     {
+//        foreach (Adldap::search()->all() as $v) {
+//            \Debugbar::info($v->cn);
+//        }
         return view('login');
     }
 
     public function postLogin(Request $request)
     {
-        $user = User::where('email', '=', $request->input('email'))->first();
-        if ($user) {
+//        $user = User::where('email', $request->input('email'))->first();
+        $s = Adldap::search()
+            ->where('mail', '=', $request->input('email'))
+            ->where('userPassword', '=', $request->input('senha'))
+            ->first();
+        if ($s) {
+            $user = User::where('email', $request->input('email'))->first();
+            if (count($user) == 0)
+                $user = $this->createUser($s);
+
             Auth::login($user);
             return redirect()->intended('/');
         }
+
+//        if(Auth::attempt(['username' => $request->input('email'), 'password' => $request->input('senha')]))
+//            return redirect()->intended('/');
 
         return view('login')
             ->withInput($request->only('email'))
@@ -36,4 +54,20 @@ class AuthController extends Controller {
         return view('login');
     }
 
+    public function createUser($entry) {
+        $ponto = Ponto::create([
+            'nome' => "Casa do {$entry->sn[0]}",
+            'endereco' => $entry->homepostaladdress[0],
+            'bairro' => '',
+            'cep' => $entry->postalcode[0]
+        ]);
+
+        $user = new User();
+        $user->name = $entry->sn[0];
+        $user->email = $entry->mail[0];
+        $user->ponto()->associate($ponto);
+        $user->save();
+
+        return $user;
+    }
 }

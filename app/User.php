@@ -10,8 +10,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     use Authenticatable, CanResetPassword;
 
-    protected $table = 'users'; 
+    protected $table = 'users';
     protected $hidden = ['remember_token'];
+    protected $fillable = ['name', 'email'];
 
     public function ponto()
     {

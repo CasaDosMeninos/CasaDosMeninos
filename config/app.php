@@ -146,6 +146,7 @@ return [
 		'App\Providers\RouteServiceProvider',
 
 		'Illuminate\Html\HtmlServiceProvider',
+        Adldap\Laravel\AdldapServiceProvider::class,
 
 	],
 
@@ -199,6 +200,7 @@ return [
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'HTML'      => 'Illuminate\Html\HtmlFacade',
         'Date'      => 'Jenssegers\Date\Date',
+        'Adldap' => Adldap\Laravel\Facades\Adldap::class
 
 	],
 
