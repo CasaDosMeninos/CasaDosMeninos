@@ -38,14 +38,18 @@
                             </li>
                         </ul>
 
+                        <ul class="rightList">
+                            <li><strong>Email:</strong> {{ $user->mail[0] }}</li>
+                        </ul>
+
                         <div class="clear"></div>
                     </div>
 
+                    @if(!isset($alheio))
                     <div class="cLine"></div>
 
                     <div class="orderRow">
                         <ul class="leftList">
-                            <li>Email:</li>
                             <li>Endereço:</li>
                             <li>CEP:</li>
                             <li>Telefone 1:</li>
@@ -58,7 +62,6 @@
                             @endif
                         </ul>
                         <ul class="rightList">
-                            <li><strong>{{ $user->mail[0] }}</strong></li>
                             <li><strong>{{ $user->homepostaladdress[0] }}</strong></li>
                             <li><strong>{{ $user->postalcode[0] }}</strong></li>
                             <li><strong>{{ $user->mobile[0] }}</strong></li>
@@ -72,10 +75,12 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-
+                    @endif
                 </div>
             </div>
         </div>
+
+        @if(!isset($alheio))
         <div class="oneTwo">
             <div class="widget">
                 <div class="title"><img src="{{ asset('images/icons/dark/globe.png') }}" alt="" class="titleIcon" />
@@ -84,6 +89,7 @@
                 <div id="googleMap" style="width:100%;height:380px;"></div>
             </div>
         </div>
+        @endif
         <div class="clear"></div>
     </div>
 
@@ -92,6 +98,7 @@
 @stop
 
 @section('js')
+    @if(!isset($alheio))
     <script type="text/javascript">
         /* Google MAPS
          ================================================== */
@@ -137,4 +144,5 @@
         }
 
     </script>
+    @endif
 @stop
