@@ -54,7 +54,7 @@ return [
         |
         */
 
-        'account_suffix' => ',dc=intranet,dc=cm,dc=net',
+        'account_suffix' => env('LDAP_SUFFIX'),
 
         /*
         |--------------------------------------------------------------------------
@@ -68,7 +68,7 @@ return [
         |
         */
 
-        'domain_controllers' => ['192.168.1.148'],
+        'domain_controllers' => [env('LDAP_HOST')],
 
         /*
         |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
         |
         */
 
-        'base_dn' => 'ou=People,dc=intranet,dc=cm,dc=net',
+        'base_dn' => env('LDAP_SEARCH'),
 
         /*
         |--------------------------------------------------------------------------
@@ -109,8 +109,8 @@ return [
         |
         */
 
-        'admin_username' => 'cn=admin',
-        'admin_password' => '123',
+        'admin_username' => env('LDAP_USER'),
+        'admin_password' => env('LDAP_PASSWORD'),
 
         /*
         |--------------------------------------------------------------------------
