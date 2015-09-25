@@ -120,24 +120,33 @@
 		})
 		.bind("step_shown", function(event, data){
 			if (data.currentStep == 'cadastrarLivro2') {
-				var wcAPI = ' http://xisbn.worldcat.org/webservices/xid/isbn/' + $('#isbn').val();
+				var wcAPI = 'http://xisbn.worldcat.org/webservices/xid/isbn/' + $('#isbn').val() + '?callback=?';
 				var req = {
 					method: 'getMetadata',
 					format: 'jsonp',
 					crossDomain: true,
 					fl: 'author,ed,publisher,title,year'
 				};
-				$.getJSON(wcAPI, req, function(data) {
-					if (data.stat == 'ok') {
-						var book = data.list[0];
-						$('#titulo').val(book.title);
-						$('#editora').val(book.publisher);
-						$('#autor').val(book.author);
-						$('#ano').val(book.year);
-						$('#edicao').val(book.ed);
-						$('#validado').val(1);
-					}
+				$.ajax({
+					url: 'http://xisbn.worldcat.org/webservices/xid/isbn/' + $('#isbn').val(),
+					data: req,
+					type: 'GET',
+					crossDomain: true,
+					dataType: 'jsonp',
+					success: function(data) {
+						if (data.stat == 'ok') {
+							var book = data.list[0];
+							$('#titulo').val(book.title);
+							$('#editora').val(book.publisher);
+							$('#autor').val(book.author);
+							$('#ano').val(book.year);
+							$('#edicao').val(book.ed);
+							$('#validado').val(1);
+						}
+					},
+					error: function() { alert('Failed!'); },
 				});
+
 			};
 		});
 
