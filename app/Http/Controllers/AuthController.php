@@ -57,7 +57,8 @@ class AuthController extends Controller {
             'bairro' => '',
             'cep' => $entry->postalcode[0]
         ]);
-        $ponto->privado(true)->save();
+        $ponto->privado = true;
+        $ponto->save();
 
         $user = new User();
         $user->name = $entry->sn[0];
