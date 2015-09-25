@@ -85,8 +85,8 @@ class LivroController extends Controller {
 		if ($request->input('tipo-ponto') == 'fora') {
 			if ($request->file('imagem') != null && $request->file('imagem')->isValid()) {
 
-                if (!\File::exists('livros'))
-                    \File::makeDirectory('livros');
+		        if (!\File::exists('livros'))
+					\File::makeDirectory('livros');
 
 				//$extensao = $request->file('imagem')->getClientOriginalExtension();
 				$nome = sprintf('user_%d.jpg', Auth::user()->id);
@@ -104,7 +104,7 @@ class LivroController extends Controller {
 			$livro->tema()->associate(Tema::find($request->input('tema_id')));
 			$livro->dono()->associate(User::find(Auth::user()->id));
 			$livro->ponto()->associate(Ponto::find(Auth::user()->ponto_id));
-            $livro->status()->associate(Status::where('nome', 'Disponivel')->first());
+     		$livro->status()->associate(Status::where('nome', 'Disponivel')->first());
 
 			$livro->validado = $request->input('validado');
 			$livro->fill($request->input())->save();
@@ -149,5 +149,5 @@ class LivroController extends Controller {
 	}
 
 
-	
+
 }

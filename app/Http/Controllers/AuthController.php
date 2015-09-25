@@ -28,7 +28,7 @@ class AuthController extends Controller {
     {
         $s = Adldap::search()
             ->where('mail', '=', $request->input('email'))
-            ->where('userPassword', '=', $request->input('senha'))
+            ->where('senha', '=', md5($request->input('senha')))
             ->first();
         if ($s) {
             $user = User::where('email', $request->input('email'))->first();
