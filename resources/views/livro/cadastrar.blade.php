@@ -123,7 +123,8 @@
 				var wcAPI = ' http://xisbn.worldcat.org/webservices/xid/isbn/' + $('#isbn').val();
 				var req = {
 					method: 'getMetadata',
-					format: 'json',
+					format: 'jsonp',
+					crossDomain: true,
 					fl: 'author,ed,publisher,title,year'
 				};
 				$.getJSON(wcAPI, req, function(data) {
