@@ -52,9 +52,13 @@
 
 <!-- Left side content -->
 <div id="leftSide">
-    <div class="logo"><a href="index.html"><img src="{{ asset('images/logo.png') }}" alt="" /></a></div>
+    <div class="logo">
+        <a href="{{ route('home') }}">
+            {{--<img src="{{ asset('images/logo.png') }}" alt="" />--}}
+        </a>
+    </div>
     
-    <div class="sidebarSep mt0"></div>
+    {{--<div class="sidebarSep mt0"></div>--}}
     
     <!-- Search widget -->
     <form action="{{ route('livro.busca') }}" class="sidebarSearch">
@@ -239,6 +243,7 @@
     
     <!-- Footer line -->
     <div id="footer">
+        <div class="wrapper"><img src="{{ asset('images/footer.jpg') }}" alt="" /></div>
         <div class="wrapper">Todos os direitos reservados &copy; {{ date('Y') }}. Feito por <a href="http://rasouza.com.br" title="">R. A. Souza</a></div>
     </div>
 
