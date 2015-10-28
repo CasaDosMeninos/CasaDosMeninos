@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'admin@rasouza.com.br', 'name' => 'Casa dos Meninos'],
+	'from' => ['address' => 'biblioteca@casadosmeninos.org.br', 'name' => 'Biblioteca CM'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -119,6 +119,6 @@ return [
 	|
 	*/
 
-	'pretend' => false,
+	'pretend' => env('MAIL_PRETEND', false),
 
 ];

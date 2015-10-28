@@ -11,11 +11,6 @@ class HomeController extends Controller {
 
 	public function index()
     {
-        Mail::send('emails.pedir', [], function($message) {
-            $message->subject('Pedido de empréstimo de livro');
-            $message->sender('admin@rasouza.com.br');
-            $message->to('alves.wm@gmail.com');
-        });
 		return view('home');
 	}
 
