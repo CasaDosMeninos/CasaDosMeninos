@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'rasouza@rasouza.com.br', 'name' => 'Casa dos Meninos'],
+	'from' => ['address' => 'admin@rasouza.com.br', 'name' => 'Casa dos Meninos'],
 
 	/*
 	|--------------------------------------------------------------------------
