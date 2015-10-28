@@ -78,7 +78,7 @@
         </form>
 
     </div>
-    <span style="float: right">Não tem cadastro? <a href="http://login.basecomum.org.br">Clique aqui</a></span>
+    <span style="float: right">Não tem cadastro? <a href="http://login.basecomum.org.br/cadastro.php">Clique aqui</a></span>
 </div>
 
 <!-- Footer line -->
