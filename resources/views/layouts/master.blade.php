@@ -160,7 +160,7 @@
     @section('resp-nav')
     <div class="resp">
         <div class="respHead">
-            <a href="index.html" title=""><img src="{{ asset('images/loginLogo.png') }}" alt="" /></a>
+
         </div>
         
         <div class="cLine"></div>
@@ -243,7 +243,12 @@
     
     <!-- Footer line -->
     <div id="footer">
-        <div class="wrapper"><img src="{{ asset('images/footer.jpg') }}" alt="" /></div>
+        <div class="wrapper">
+            <img src="{{ asset('images/footer/casadosmeninos.png') }}" alt="" height="100"/>
+            <img src="{{ asset('images/footer/direitoshumanos.png') }}" alt="" height="100"/>
+            <img src="{{ asset('images/footer/redeseruas.png') }}" alt="" height="100"/>
+            <img src="{{ asset('images/footer/pedromacambira.png') }}" alt=""/>
+        </div>
         <div class="wrapper">Todos os direitos reservados &copy; {{ date('Y') }}. Feito por <a href="http://rasouza.com.br" title="">R. A. Souza</a></div>
     </div>
 

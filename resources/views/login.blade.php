@@ -53,22 +53,22 @@
 <div class="loginWrapper">
     <div class="loginLogo"><img src="{{ asset('images/loginLogo.png') }}" alt="" /></div>
     <div class="widget">
-        <div class="title"><img src="{{ asset('images/icons/dark/files.png') }}" alt="" class="titleIcon" /><h6>Login</h6></div>
+        <div class="title"><img src="{{ asset('images/icons/dark/files.png') }}" alt="" class="titleIcon" /><h6>Painel de login</h6></div>
         <form id="validate" method="post" class="form" action="{{ action('AuthController@login') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <fieldset>
                 <div class="formRow">
-                    <label for="login">E-mail:</label>
+                    <label for="email">E-mail:</label>
                     <div class="loginInput"><input type="text" name="email" class="validate[required]" id="email" /></div>
                     <div class="clear"></div>
                 </div>
-                
+
                 <div class="formRow">
-                    <label for="pass">Senha:</label>
+                    <label for="senha">Senha:</label>
                     <div class="loginInput"><input type="password" name="senha" class="validate[required]" id="senha" /></div>
                     <div class="clear"></div>
                 </div>
-                
+
                 <div class="loginControl">
                     <div class="rememberMe"><input type="checkbox" id="remMe" name="remMe" /><label for="remMe">Manter logado</label></div>
                     <input type="submit" value="Entrar" class="dredB logMeIn" />

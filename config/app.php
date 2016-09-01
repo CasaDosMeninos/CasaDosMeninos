@@ -135,6 +135,7 @@ return [
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
+        'Illuminate\Broadcasting\BroadcastServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -145,8 +146,8 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
-		'Illuminate\Html\HtmlServiceProvider',
         Adldap\Laravel\AdldapServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
 	],
 
@@ -197,10 +198,10 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 
 		'Debugbar'  => 'Barryvdh\Debugbar\Facade',
-		'Form'      => 'Illuminate\Html\FormFacade',
-		'HTML'      => 'Illuminate\Html\HtmlFacade',
         'Date'      => 'Jenssegers\Date\Date',
-        'Adldap' => Adldap\Laravel\Facades\Adldap::class
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
+        'Adldap'    => Adldap\Laravel\Facades\Adldap::class
 
 	],
 
